@@ -1,6 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[GlusterFS使用中的一些命令积累]]></title>
+    <url>%2F2020%2F03%2F25%2FGlusterFS%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%91%BD%E4%BB%A4%E7%A7%AF%E7%B4%AF%2F</url>
+    <content type="text"><![CDATA[记录下GlusterFS的命令 分布式文件系统GlusterFS实战，参考文档： CHEGVA博客链接 install1234yum install centos-release-glusteryum install -y glusterfs glusterfs-server glusterfs-fuse glusterfs-rdmasystemctl start glusterd.servicesystemctl enable glusterd.service configuration123456789101112131415161718192021222324252627282930313233343536373839404142# 查看glusterfs版本信息glusterfs -V# 将节点加入存储池# 节点加入防火墙的时候，需要开放防火墙端口：firewall-cmd --add-service=glusterfsgluster peer probe lg1gluster peer probe lg2# 创建volume , 复制几份replica后的数字就是几 分布式复制模式gluster volume create test replica 2 transport tcp lg1:/var/test/data lg2:/var/test/data lg3:/var/test/data lg4:/var/test/data # 查看刚才创建卷gluster volume info#启动刚才创建的卷组 gluster volume start test #查看各节点状态gluster peer status ``` # gluster 性能调优：开启 指定 volume 的配额： (test 为 volume 名称)```bashgluster volume quota test enable限制 test 中 / (既总目录) 最大使用 80GB 空间gluster volume quota test limit-usage / 80GB# 设置 cache 4GBgluster volume set test performance.cache-size 4GB# 开启 异步 ， 后台操作gluster volume set test performance.flush-behind on# 设置 io 线程 32gluster volume set test performance.io-thread-count 32# 设置 回写 (写数据时间，先写入缓存内，再写入硬盘)gluster volume set test performance.write-behind on Mounts1mount -t glusterfs 127.0.0.1:test /var/data]]></content>
+      <categories>
+        <category>linux运维基本技能</category>
+      </categories>
+      <tags>
+        <tag>GlusterFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[k8s个人总结备忘录]]></title>
+    <url>%2F2020%2F02%2F23%2Fk8s%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93%E5%A4%87%E5%BF%98%E5%BD%95%2F</url>
+    <content type="text"><![CDATA[整理下k8s在工作中使用的备忘录 好记性不如一个烂笔头]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>k8s</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[redis监控脚本]]></title>
+    <url>%2F2020%2F02%2F18%2Fredis%E7%9B%91%E6%8E%A7%E8%84%9A%E6%9C%AC%2F</url>
+    <content type="text"><![CDATA[记录下redis监控的脚本 redis监控脚本12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970#!/usr/bin/env bash# Author: Sun# Description : monitor redis and send data to zabbix-server# -------------------------------------------------------------------------------------------# IDC1 dt-redis节点 存储数据缓存 ss-redis节点: 存储session数据# dt-redis-3 dt-redis-4 dt-redis-5 dt-redis-6 dt-redis-7 dt-redis-8 dt-redis-9 dt-redis-10# ss-redis-3 ss-redis-4 ss-redis-5 ss-redis-6 ss-redis-7 ss-redis-8 ss-redis-9 ss-redis-10# -------------------------------------------------------------------------------------------function check_cluster_status()&#123; # $1: redis-type (dt|ss) # $2: redis-node # $3: port status=`redis-cli -c -h $2 -p $3 cluster info | grep "cluster_state" | awk -F ':' '&#123;print $NF&#125;'` if echo $status | grep "ok" &gt;/dev/null;then zabbix_sender -z 47.75.134.140 -s redis-new -k $&#123;1&#125;-rd.redis.info.cluster_state -o $&#123;status&#125; else status="Fail" zabbix_sender -z 47.75.134.140 -s redis-new -k $&#123;1&#125;-rd.redis.info.cluster_state -o $&#123;status&#125; fi&#125;# redis 集群状态数据上报check_cluster_status dt 10.10.5.3 6379check_cluster_status ss 10.10.5.3 6380function get_data()&#123; # $1: redis-type (dt|ss) # $2: redis-node # $3: port # $4: check_key # $5: redis-number data=`/usr/bin/redis-cli -h $&#123;2&#125; -p $&#123;3&#125; info | grep -w $&#123;4&#125; | awk -F ':' '&#123;print $NF&#125;'` /usr/bin/zabbix_sender -z 47.75.134.140 -s redis-new -k $&#123;1&#125;-rd-$&#123;5&#125;.redis.info.$&#123;4&#125; -o $&#123;data&#125;&#125;# keys 注释#-----------------------------------------------------------# used_memory_peak: Redis使用内存的峰值，字节数# used_memory_peak_human: redis使用内存的峰值 单位G# connected_clients: 已连接客户端的数量(不包括通过从属服务器连接的客户端)# instantaneous_input_kbps: 瞬间的Redis输入网络流量(kbps)# instantaneous_output_kbps: 瞬间的Redis输出网络流量(kbps)# instantaneous_ops_per_sec: 服务器每秒钟执行的命令数量# keyspace_misses: 查找键未命中的次数# evicted_keys: 因内存used_memory达到maxmemory后，每秒被驱逐的key个数# expired_keys: 因为过期而被自动删除的数据库键数量# rejected_connections: 因连接数达到maxclients上限后，被拒绝的连接个数#-----------------------------------------------------------keys="used_memory_peak connected_clients instantaneous_input_kbps instantaneous_output_kbps instantaneous_ops_per_sec keyspace_misses evicted_keys expired_keys rejected_connections"# 获取redis info信息,并发送至zabbixfor i in $(seq 3 10);do for key in $keys;do get_data dt 10.10.5.$&#123;i&#125; 6379 $key $i get_data ss 10.10.5.$&#123;i&#125; 6380 $key $i donedone]]></content>
+      <categories>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python的sys.argv用法备忘录]]></title>
+    <url>%2F2020%2F02%2F10%2Fpython%E7%9A%84sys-argv%E7%94%A8%E6%B3%95%E5%A4%87%E5%BF%98%E5%BD%95%2F</url>
+    <content type="text"><![CDATA[记录在工作中使用python的基础备忘录 好记性不如烂笔头，特此记录下 1234import sysprint(sys.argv) # 输出所有的参数 包括文件名，一般第一个参数为文件名print(sys.argv[0]) # 输出当前文件名print(sys.argc[1]) # 输出当前文件名后面的参数]]></content>
+      <categories>
+        <category>python的积累</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Linux IO实时监控iostat命令详解]]></title>
+    <url>%2F2020%2F02%2F04%2FLinux-IO%E5%AE%9E%E6%97%B6%E7%9B%91%E6%8E%A7iostat%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3%2F</url>
+    <content type="text"><![CDATA[整理下iostat各参数含义 语法12# 语法iostat [ -c ] [ -d ] [ -h ] [ -N ] [ -k | -m ] [ -t ] [ -V ] [ -x ] [ -z ] [ device [...] | ALL ] [ -p [ device [,...] | ALL ] ] [ interval [ count ] ] 常用命令注解12345678iostat -d -k 2 10 # 查看TPS和吞吐量信息(磁盘读写速度单位为KB)iostat -d -m 2 10 # 查看TPS和吞吐量信息(磁盘读写速度单位为MB)iostat -d -x -k 1 10 # 查看设备使用率（%util）、响应时间（awaitiostat -c 1 10 # 查看cpu状态iostat -d -x -k 1 10# -d 显示设备(磁盘)使用状态 -k 某些使用block为单位的列强制使用Kilobytes为单位 2表示，数据显示每隔2秒刷新一次 10标识显示次数# -x 显示扩展数据 example123456789101112131415161718192021222324252627282930313233343536373839Linux 3.10.0-1062.1.1.el7.x86_64 (elk-1) 02/05/2020 _x86_64_ (8 CPU)Device: tps kB_read/s kB_wrtn/s kB_read kB_wrtnsda 246.12 247.28 2109.43 2990563437 25511444304Device: tps kB_read/s kB_wrtn/s kB_read kB_wrtnsda 82.00 12.00 468.00 24 936Device: tps kB_read/s kB_wrtn/s kB_read kB_wrtnsda 71.00 0.00 378.00 0 756Device: tps kB_read/s kB_wrtn/s kB_read kB_wrtnsda 97.50 0.00 1520.00 0 3040Device: tps kB_read/s kB_wrtn/s kB_read kB_wrtnsda 71.50 0.00 318.00 0 636Device: tps kB_read/s kB_wrtn/s kB_read kB_wrtnsda 87.00 0.00 404.00 0 808Device: tps kB_read/s kB_wrtn/s kB_read kB_wrtnsda 89.50 0.00 480.00 0 960Device: tps kB_read/s kB_wrtn/s kB_read kB_wrtnsda 72.00 0.00 800.00 0 1600Device: tps kB_read/s kB_wrtn/s kB_read kB_wrtnsda 126.00 0.00 1908.00 0 3816Device: tps kB_read/s kB_wrtn/s kB_read kB_wrtnsda 82.00 0.00 418.00 0 836# 解释如下tps: 该设备每秒的传输次数(Indicate the number of transfers per second that were issued to the device.)"一次传输"意思是"一次I/O请求"。多个逻辑请求可能会被合并为"一次I/O请求"。"一次传输"请求的大小是未知的。kB_read/s：每秒从设备（drive expressed）读取的数据量；kB_wrtn/s：每秒向设备（drive expressed）写入的数据量；kB_read：读取的总数据量；kB_wrtn：写入的总数量数据量；这些单位都为Kilobytes。上面的例子中，我们可以看到磁盘sda以及它的各个分区的统计数据，当时统计的磁盘总TPS是39.29，下面是各个分区的TPS。（因为是瞬间值，所以总TPS并不严格等于各个分区TPS的总和 1234567891011121314151617181920Linux 3.10.0-1062.1.1.el7.x86_64 (elk-1) 02/05/2020 _x86_64_ (8 CPU)Device: rrqm/s wrqm/s r/s w/s rkB/s wkB/s avgrq-sz avgqu-sz await r_await w_await svctm %utilsda 0.00 3.79 10.40 235.72 247.30 2109.42 19.15 0.28 1.13 21.62 0.22 0.33 8.24# 解释如下rrqm/s：每秒这个设备相关的读取请求有多少被Merge了（当系统调用需要读取数据的时候，VFS将请求发到各个FS，如果FS发现不同的读取请求读取的是相同Block的数据，FS会将这个请求合并Merge）；wrqm/s：每秒这个设备相关的写入请求有多少被Merge了。rsec/s：每秒读取的扇区数；wsec/：每秒写入的扇区数。rKB/s：The number of read requests that were issued to the device per second；wKB/s：The number of write requests that were issued to the device per second；avgrq-sz 平均请求扇区的大小avgqu-sz 是平均请求队列的长度。毫无疑问，队列长度越短越好。 await： 每一个IO请求的处理的平均时间（单位是微秒毫秒）。这里可以理解为IO的响应时间，一般地系统IO响应时间应该低于5ms，如果大于10ms就比较大了。 这个时间包括了队列时间和服务时间，也就是说，一般情况下，await大于svctm，它们的差值越小，则说明队列时间越短，反之差值越大，队列时间越长，说明系统出了问题。svctm 表示平均每次设备I/O操作的服务时间（以毫秒为单位）。如果svctm的值与await很接近，表示几乎没有I/O等待，磁盘性能很好，如果await的值远高于svctm的值，则表示I/O队列等待太长， 系统上运行的应用程序将变慢。%util： 在统计时间内所有处理IO时间，除以总共统计时间。例如，如果统计间隔1秒，该设备有0.8秒在处理IO，而0.2秒闲置，那么该设备的%util = 0.8/1 = 80%，所以该参数暗示了设备的繁忙程度。一般地，如果该参数是100%表示设备已经接近满负荷运行了（当然如果是多磁盘，即使%util是100%，因为磁盘的并发能力，所以磁盘使用未必就到了瓶颈）。复制代码]]></content>
+      <categories>
+        <category>linux高阶命令</category>
+      </categories>
+      <tags>
+        <tag>linux高阶命令</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[git commit之后修改commit内容或者撤销commit操作说明]]></title>
+    <url>%2F2019%2F12%2F12%2Fgit-commit%E4%B9%8B%E5%90%8E%E4%BF%AE%E6%94%B9commit%E5%86%85%E5%AE%B9%E6%88%96%E8%80%85%E6%92%A4%E9%94%80commit%E6%93%8D%E4%BD%9C%E8%AF%B4%E6%98%8E%2F</url>
+    <content type="text"><![CDATA[git commit 撤销 &amp; 修改commit内容 以下参考博客地址 撤销commit操作1git reset --soft HEAD^ # 只撤销commit操作，写的代码依然保留 HEAD^的意思是上一个版本，也可以写成HEAD~1如果你进行了2次commit，想都撤回，可以使用HEAD~2 –mixed意思是：不删除工作空间改动代码，撤销commit，并且撤销git add . 操作这个为默认参数,git reset –mixed HEAD^ 和 git reset HEAD^ 效果是一样的。 –soft不删除工作空间改动代码，撤销commit，不撤销git add . –hard删除工作空间改动代码，撤销commit，撤销git add . 注意完成这个操作后，就恢复到了上一次的commit状态 修改commit内容1git commit --amend 此时会进入默认vim编辑器，修改注释完毕后保存就好了]]></content>
+      <categories>
+        <category>Git基本操作技能</category>
+      </categories>
+      <tags>
+        <tag>Git基本操作技能</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[openresty中lua获取nginx的参数]]></title>
+    <url>%2F2019%2F08%2F07%2Fopenresty%E4%B8%ADlua%E8%8E%B7%E5%8F%96nginx%E5%86%85%E7%BD%AE%E5%8F%82%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[openresty学习之路的备忘录 获取uri12local uri = ngx.var.uri # 获取请求的uri,不带参数local uri = ngx.var.request_uri # 获取请求的uri,携带参数 字符串分割函数1234567891011function string.split(str, delimiter) if str == nil or str == '' or delimiter == nil then return nil end local result = &#123;&#125; for match in (str .. delimiter):gmatch("(.-)" .. delimiter) do table.insert(result, match) end return resultend 获取上游服务器ip地址1234-- 获取请求方的ipfunction get_request_ip() return ngx.var.http_x_forwarded_for and ngx.var.http_x_forwarded_for or ngx.var.remote_addrend 获取response内容12345-- 获取响应体内容 ngx.req.read_body() local postargs = ngx.req.get_post_args() local username = postargs["username"] ngx.log(ngx.ERR, '----username:',username, '----') 判断关键字是否在table中12345678910111213-- 排除的ID local limit_tb1 = &#123; 1222, 3232, 2121, &#125; local siteid = '1212' if siteid then if inTable(limit_tb1, tonumber(siteid)) then ngx.log(ngx.ERR, '排除的ID----- siteid: ', siteid) return end end]]></content>
+      <categories>
+        <category>openresty</category>
+      </categories>
+      <tags>
+        <tag>openresty学习之路</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[openresty学习路上的折腾]]></title>
     <url>%2F2019%2F08%2F07%2Fopenresty%E5%AD%A6%E4%B9%A0%E8%B7%AF%E4%B8%8A%E7%9A%84%E6%8A%98%E8%85%BE%2F</url>
     <content type="text"><![CDATA[openresty学习之路的备忘录 获取uri12local uri = ngx.var.uri # 获取请求的uri,不带参数local uri = ngx.var.request_uri # 获取请求的uri,携带参数]]></content>
@@ -20,6 +97,28 @@
       </categories>
       <tags>
         <tag>openresty</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[elk日志收集系统使用备忘录]]></title>
+    <url>%2F2019%2F07%2F14%2Felk%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86%E7%B3%BB%E7%BB%9F%E4%BD%BF%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95%2F</url>
+    <content type="text"><![CDATA[记录下工作中使用ELK系统的备忘录 version6.6.1 组件说明(记录下原理部分)公司业务采用架构为: filebeat+kafaka+zookeeper+logstash+elasticsearch+kibana+grafana Filebeat：filebat是一个用于转发和集中日志数据的轻量级shipper。作为代理安装在服务器上，filebeat监视指定的日志文件或位置，收集日志事件，并将它们转发给kafaka或者redis或者logstash进行索引 kafaka: Kafka是一种高吞吐量的分布式发布/订阅消息系统，这是官方对kafka的定义，kafka是Apache组织下的一个开源系统，它的最大的特性就是可以实时的处理大量数据以满足各种需求场景：比如基于hadoop平台的数据分析、低时延的实时系统、storm/spark流式处理引擎等。kafka现在它已被多家大型公司作为多种类型的数据管道和消息系统使用 zookeeper: ZooKeeper是一种为分布式应用所设计的高可用、高性能的开源协调服务，它提供了一项基本服务：分布式锁服务，同时，也提供了数据的维护和管理机制，如：统一命名服务、状态同步服务、集群管理、分布式消息队列、分布式应用配置项的管理等等 Logstash：Logstash 是开源的服务器端数据处理管道，能够同时从多个来源采集数据，转换数据，然后将数据发送到存储库 ElasticSearch：Elasticsearch 是基于 JSON 的分布式搜索和分析引擎，专为实现水平扩展、高可靠性和管理便捷性而设计 Kibana：Kibana 能够以图表的形式呈现数据，并且具有可扩展的用户界面，供您全方位配置和管理 Elastic Stack kafaka常用命令整理1234567891011121314151617181920212223# 显示topic列表bin/kafka-topics.sh --zookeeper zk1:2181,zk2:2181,zk3:2181 --list 也可以从一个节点上查看。下面简写查看一个节点。# 创建一个topic，并指定topic属性（副本数、分区数等）bin/kafka-topics.sh --create --zookeeper zk1:2181 --replication-factor 1 --partitions 3 --topic test - --partitions应等于或大于消费者# 查看某个topic的状态bin/kafka-topics.sh --zookeeper zk1:2181 --topic test --describe# 生产消息bin/kafka-console-producer.sh --broker-list kafka1:9092 --topic test # 消费消息bin/kafka-console-consumer.sh --bootstrap-server PLAINTEXT://kafka1:9092 --topic test# 查看实时消息，如果从头看可在后面加 --from-beginning kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning# 删除topicbin/kafka-topics.sh --delete --zookeeper zk1:2181 --topic test elasticsearch常用命令整理1234567891011# 查看集群状态curl http://127.0.0.1:9200/_cat/health?v # 查看集群节点curl http://127.0.0.1:9200/_cat/nodes?v# 查看索引列表curl http://127.0.0.1:9200/_cat/indices?v# 删除索引curl -XDELETE http://127.0.0.1:9200/索引名?pretty logstash正则匹配备忘录(%{URIPATHPARAM:uri}|-) # 匹配uri(%{GREEDYDATA:uri}|-) # 匹配uri 以上这两个的区别为: 在grok中，(%{URIPATHPARAM:uri}|-) 会解析出来多个字段，匹配uri带参数，并解析出URIPATH和URIPARAM ,GREEDYDATA匹配到url和参数值 例如: 12345678910111213141516171819日志: /www.baidu.com/sousuo/logstash/test/url/a/b/c?a=1grok正则为: (%&#123;URIPATHPARAM:uri&#125;) "uri": [ [ "/www.baidu.com/sousuo/logstash/test/url/a/b/c" ] ], "URIPATH": [ [ "/www.baidu.com/sousuo/logstash/test/url/a/b/c" ] ], "URIPARAM": [ [ "?a=1" ] ], grok的正则案例12]]></content>
+      <categories>
+        <category>监控</category>
+      </categories>
+      <tags>
+        <tag>elk</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[zabbix和grafana使用备忘录]]></title>
+    <url>%2F2019%2F07%2F14%2Fzabbix%E5%92%8Cgrafana%E4%BD%BF%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95%2F</url>
+    <content type="text"><![CDATA[zabbix和grafana使用备忘录 注释事项 在整套环境中，需要确保各个节点的版本号一致性，在生产环境中出现问题12345# zabbix-proxy提示cannot send list of active checks to "10.10.6.3": host [test-3] not found# zabbix-agent提示no active checks on server [10.10.2.1:10051]: host [test-3] not found 以上问题，发现zabbix-proxy和zabbix-server版本不一致导致 port备注zabbix-server: 10051zabbix-proxy: 10051zabbix-agent: 10050 docker proxy run1docker run --name dayu-zabbix-proxy-sqlite3 --restart=always -v /etc/hosts:/etc/hosts -e ZBX_HOSTNAME=lc -e ZBX_SERVER_HOST=35.194.200.24 -p 10051:10051 -d zabbix/zabbix-proxy-sqlite3:latest zabbix的相关介绍应用集包含多个监控项监控项是具体的 数据定义的key值触发器用来 指定监控项的阈值进行报警]]></content>
+      <categories>
+        <category>监控</category>
+      </categories>
+      <tags>
+        <tag>zabbix&amp;&amp;grafana</tag>
       </tags>
   </entry>
   <entry>
@@ -223,7 +322,7 @@
   <entry>
     <title><![CDATA[nginx中的正则匹配表达式案例]]></title>
     <url>%2F2019%2F01%2F14%2Fnginx%E4%B8%AD%E7%9A%84%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A1%88%E4%BE%8B%2F</url>
-    <content type="text"><![CDATA[记录下工作中遇到的nginx的正则表达式的书写案列 前言1： 因受到cc攻击，所以在location匹配mobile-api，获取访问的头部信息，拒绝攻击端直接穿透后端服务器，配置如下123456789101112location ^~ /mobile-api &#123; if ($http_user_agent ~~* (app_android)|(app_ios)) &#123; return 403 &#125; proxy_pass http://mobile-upstream;&#125;# 被cc攻击，通过代理服务器挡住请求 判断http_user_agent 符合哪些规则# 写在location中if ($http_user_agent !~* ((okhttp)|(app_((rn)|(ios)|(android))))) &#123; return 200 ;&#125;]]></content>
+    <content type="text"><![CDATA[记录下工作中遇到的nginx的正则表达式的书写案列 注意: nginx在location 匹配中， ^~ = @ 后不能使用正则表达式 UA匹配前言1： 因受到cc攻击，所以在location匹配mobile-api，获取访问的头部信息，拒绝攻击端直接穿透后端服务器，配置如下123456789101112location ^~ /mobile-api &#123; if ($http_user_agent ~~* (app_android)|(app_ios)) &#123; return 403 &#125; proxy_pass http://mobile-upstream;&#125;# 被cc攻击，通过代理服务器挡住请求 判断http_user_agent 符合哪些规则# 写在location中if ($http_user_agent !~* ((okhttp)|(app_((rn)|(ios)|(android))))) &#123; return 200 ;&#125; nginx的if语句判断多个条件同时成立的写法 nginx的配置中不支持if条件的逻辑与 逻辑或运算，并且不支持if的嵌套语法，可以使用变量的方法来实现 例子:1234567891011121314151617# 错误的书写方式，只是为了理解想表达 设置的意思if ($remote_addr ~ "^(12.34|56.78)" &amp;&amp; $http_user_agent ~* "spider") &#123; return 403;&#125;# 正确通过set变量实现上面的想法set $flag 0;if ($remote_addr ~ "^(12.34|56.78)") &#123; set $flag "$&#123;flag&#125;1";&#125;if ($http_user_agent ~* "spider") &#123; set $flag "$&#123;flag&#125;2";&#125;if ($flag = "012") &#123; return 403;&#125; ip匹配12/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))&#123;3,3&#125;$//(\d+)\.(\d+)\.(\d+)\.(\d+)/ location匹配一级url后面的内容123location ~* /static-file/.+\.(js|css|png)$ &#123; proxy_pass http://yunweiops.com;&#125;]]></content>
       <categories>
         <category>nginx</category>
       </categories>
@@ -305,7 +404,7 @@
   <entry>
     <title><![CDATA[redis学习笔记]]></title>
     <url>%2F2018%2F12%2F18%2Fredis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%2F</url>
-    <content type="text"><![CDATA[redis学习笔记 命令加入集群的命令1redis-trib.rb create --replicas 1 10.90.0.16:6379 10.90.0.18:6379 10.90.0.20:6379 10.90.0.22:6379 10.90.0.24:6379 10.90.0.14:6379 查看集群状态1234567891011redis-cli -c cluster nodesredis-cli -c cluster info# 输出内容[root@rd-1 /]# redis-cli -c cluster nodes24f4751d30a8f3a6529e62b8d5132ec1103ee843 10.90.0.5:6379 slave fb6d70d68322f9b124f7371f96a351d05d7165f8 0 1549869293688 6 connected3b8acf45d73549b63701a4e50f1d0080c27b5b11 10.90.1.93:6379 myself,master - 0 0 1 connected 0-5460b3ee2afbea10272df14ad649b6c94094fd985e06 10.90.1.81:6379 slave 3b8acf45d73549b63701a4e50f1d0080c27b5b11 0 1549869294190 4 connectedfb6d70d68322f9b124f7371f96a351d05d7165f8 10.90.0.3:6379 master - 0 1549869294190 3 connected 10923-16383112a0ed3ef683b3606cd6a4189a0407923150b3c 10.90.1.94:6379 master - 0 1549869293189 2 connected 5461-10922d08fd1be3f346eea5a049e02df83ea226da799a8 10.90.1.91:6379 slave 112a0ed3ef683b3606cd6a4189a0407923150b3c 0 1549869292688 5 connected 删除增加节点1234567# 删除从节点# redis-trib.rb del-node 从节点 从节点ID# 此命令需要注意，会将redis的进程退出，redis会停止服务运行redis-trib.rb del-node 10.90.1.81:6379 b3ee2afbea10272df14ad649b6c94094fd985e06# 添加从节点./redis-trib.rb add-node --slave --master-id fb6d70d68322f9b124f7371f96a351d05d7165f8 10.90.1.81:6379 10.90.1.91:6379 12345678910111213141516171819202122232425262728293031# 集群信息[root@rd-1 /]# redis-cli -c cluster nodes87ea8d6e024f83ac2746daf37855e0fa2b0fbbdb 10.200.0.9:6379 myself,master - 0 0 1 connected 0-54601c376c8c4489512bdc7306fe9682082d05e04812 10.200.0.4:6379 master - 0 1549874430617 2 connected 5461-10922a2bb8b309f2c7bf1b865b07eb4c67ac88864e1e7 10.200.0.10:6379 slave 1c376c8c4489512bdc7306fe9682082d05e04812 0 1549874429614 5 connected2f858550698c40500be85cfc94c1163581d7e21b 10.200.0.6:6379 slave bfab9a4f473c7c7d1537c9e9f7c114c9eacbbd23 0 1549874430617 6 connected6926eb64dd29eb8a2b8331ef6146c4df55f39d9e 10.200.0.3:6379 slave 1c376c8c4489512bdc7306fe9682082d05e04812 0 1549874431119 2 connectedbfab9a4f473c7c7d1537c9e9f7c114c9eacbbd23 10.200.0.5:6379 master - 0 1549874430115 3 connected 10923-16383# 删除主节点# 删除主节点，如果主节点被删除从节点将会自动代替主节点，如果主节点有分配的槽点（slot）那么先去掉分配的槽点（slot）,然后再删除节点# 取消节点下分配的槽点（slot）./redis-trib.rb reshard 10.200.0.4:6379......在执行的过程中，需要依次输入 1. 删除的槽点(slot)个数 2. 接受这些槽点(slot)的节点ID 3. 要删除槽点(slot)的节点ID 4. 执行...... 输入yes# 在上述执行中，会将准备删除节点的槽点(slot)转移到另一个节点上，转移完毕后，# 删除主节点# redis-trib.rb del-node 主节点地址 主节点IDredis-trib.rb del-node 10.200.0.4:6379 1c376c8c4489512bdc7306fe9682082d05e04812# 新增主节点# redis-trib.rb add-node 新增节点地址 已存在的任何一个主节点redis-trib.rb add-node 10.200.0.4:6379 10.200.0.9:6379# 重新分配槽点redis-trib.rb reshard 10.200.0.4:6379]]></content>
+    <content type="text"><![CDATA[redis学习笔记 命令加入集群的命令1redis-trib.rb create --replicas 1 10.90.0.16:6379 10.90.0.18:6379 10.90.0.20:6379 10.90.0.22:6379 10.90.0.24:6379 10.90.0.14:6379 查看集群状态1234567891011redis-cli -c cluster nodesredis-cli -c cluster info# 输出内容[root@rd-1 /]# redis-cli -c cluster nodes24f4751d30a8f3a6529e62b8d5132ec1103ee843 10.90.0.5:6379 slave fb6d70d68322f9b124f7371f96a351d05d7165f8 0 1549869293688 6 connected3b8acf45d73549b63701a4e50f1d0080c27b5b11 10.90.1.93:6379 myself,master - 0 0 1 connected 0-5460b3ee2afbea10272df14ad649b6c94094fd985e06 10.90.1.81:6379 slave 3b8acf45d73549b63701a4e50f1d0080c27b5b11 0 1549869294190 4 connectedfb6d70d68322f9b124f7371f96a351d05d7165f8 10.90.0.3:6379 master - 0 1549869294190 3 connected 10923-16383112a0ed3ef683b3606cd6a4189a0407923150b3c 10.90.1.94:6379 master - 0 1549869293189 2 connected 5461-10922d08fd1be3f346eea5a049e02df83ea226da799a8 10.90.1.91:6379 slave 112a0ed3ef683b3606cd6a4189a0407923150b3c 0 1549869292688 5 connected 删除/增加节点1234567# 删除从节点# redis-trib.rb del-node 从节点 从节点ID# 此命令需要注意，会将redis的进程退出，redis会停止服务运行redis-trib.rb del-node 10.90.1.81:6379 b3ee2afbea10272df14ad649b6c94094fd985e06# 添加从节点./redis-trib.rb add-node --slave --master-id fb6d70d68322f9b124f7371f96a351d05d7165f8 10.90.1.81:6379 10.90.1.91:6379 12345678910111213141516171819202122232425262728293031# 集群信息[root@rd-1 /]# redis-cli -c cluster nodes87ea8d6e024f83ac2746daf37855e0fa2b0fbbdb 10.200.0.9:6379 myself,master - 0 0 1 connected 0-54601c376c8c4489512bdc7306fe9682082d05e04812 10.200.0.4:6379 master - 0 1549874430617 2 connected 5461-10922a2bb8b309f2c7bf1b865b07eb4c67ac88864e1e7 10.200.0.10:6379 slave 1c376c8c4489512bdc7306fe9682082d05e04812 0 1549874429614 5 connected2f858550698c40500be85cfc94c1163581d7e21b 10.200.0.6:6379 slave bfab9a4f473c7c7d1537c9e9f7c114c9eacbbd23 0 1549874430617 6 connected6926eb64dd29eb8a2b8331ef6146c4df55f39d9e 10.200.0.3:6379 slave 1c376c8c4489512bdc7306fe9682082d05e04812 0 1549874431119 2 connectedbfab9a4f473c7c7d1537c9e9f7c114c9eacbbd23 10.200.0.5:6379 master - 0 1549874430115 3 connected 10923-16383# 删除主节点# 删除主节点，如果主节点被删除从节点将会自动代替主节点，如果主节点有分配的槽点（slot）那么先去掉分配的槽点（slot）,然后再删除节点# 取消节点下分配的槽点（slot）./redis-trib.rb reshard 10.200.0.4:6379......在执行的过程中，需要依次输入 1. 删除的槽点(slot)个数 2. 接受这些槽点(slot)的节点ID 3. 要删除槽点(slot)的节点ID 4. 执行...... 输入yes# 在上述执行中，会将准备删除节点的槽点(slot)转移到另一个节点上，转移完毕后，# 删除主节点# redis-trib.rb del-node 主节点地址 主节点IDredis-trib.rb del-node 10.200.0.4:6379 1c376c8c4489512bdc7306fe9682082d05e04812# 新增主节点# redis-trib.rb add-node 新增节点地址 已存在的任何一个主节点redis-trib.rb add-node 10.200.0.4:6379 10.200.0.9:6379# 重新分配槽点redis-trib.rb reshard 10.200.0.4:6379 新增slave节点123456789101112# 添加从节点./redis-trib.rb add-node --slave --master-id 主节点ID 新节点ip:port 主节点ip:port # 这条命令会将分配新节点为主节点的slave1)添加为从节点./redis-trib.rb add-node --slave --master-id 339a50df26f4722f14faba2a8fe3cad508059e88 192.168.17.168:7005 192.168.17.168:7001注释：--slave，表示添加的是从节点--master-id 339a50df26f4722f14faba2a8fe3cad508059e88,主节点的node id，这个id是7001的节点id 表示将新节点添加为7001的slave192.168.17.168:7005,新节点192.168.17.168:7001集群任一个旧节点 redis缓存的TTL值(过期时间设置)12345678910111213141516171819202122232425# 不存在的 keyredis&gt; FLUSHDBOKredis&gt; TTL key # key不存在，返回-2(integer) -2# key 存在，但没有设置剩余生存时间redis&gt; SET key valueOKredis&gt; TTL key(integer) -1# 有剩余生存时间的 keyredis&gt; EXPIRE key 10086(integer) 1redis&gt; TTL key(integer) 10084]]></content>
       <categories>
         <category>redis</category>
       </categories>
@@ -517,17 +616,6 @@
       </categories>
       <tags>
         <tag>Centos7</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[GlusterFS使用中的一些命令积累]]></title>
-    <url>%2F2018%2F10%2F27%2FGlusterFS%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%91%BD%E4%BB%A4%E7%A7%AF%E7%B4%AF%2F</url>
-    <content type="text"><![CDATA[记录下GlusterFS的命令 分布式文件系统GlusterFS实战，参考文档： CHEGVA博客链接 install1234yum install centos-release-glusteryum install -y glusterfs glusterfs-server glusterfs-fuse glusterfs-rdmasystemctl start glusterd.servicesystemctl enable glusterd.service configuration123456789101112131415161718192021222324252627282930313233343536373839404142# 查看glusterfs版本信息glusterfs -V# 将节点加入存储池# 节点加入防火墙的时候，需要开放防火墙端口：firewall-cmd --add-service=glusterfsgluster peer probe lg1gluster peer probe lg2# 创建volume , 复制几份replica后的数字就是几 分布式复制模式gluster volume create test replica 2 transport tcp lg1:/var/test/data lg2:/var/test/data lg3:/var/test/data lg4:/var/test/data # 查看刚才创建卷gluster volume info#启动刚才创建的卷组 gluster volume start test #查看各节点状态gluster peer status ``` # gluster 性能调优：开启 指定 volume 的配额： (test 为 volume 名称)```bashgluster volume quota test enable限制 test 中 / (既总目录) 最大使用 80GB 空间gluster volume quota test limit-usage / 80GB# 设置 cache 4GBgluster volume set test performance.cache-size 4GB# 开启 异步 ， 后台操作gluster volume set test performance.flush-behind on# 设置 io 线程 32gluster volume set test performance.io-thread-count 32# 设置 回写 (写数据时间，先写入缓存内，再写入硬盘)gluster volume set test performance.write-behind on Mounts1mount -t glusterfs 127.0.0.1:test /var/data]]></content>
-      <categories>
-        <category>linux运维基本技能</category>
-      </categories>
-      <tags>
-        <tag>GlusterFS</tag>
       </tags>
   </entry>
   <entry>
@@ -1058,6 +1146,17 @@
       </categories>
       <tags>
         <tag>hexo部署配置</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Linux字符串截取]]></title>
+    <url>%2F2016%2F02%2F09%2FLinux%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%88%AA%E5%8F%96%2F</url>
+    <content type="text"><![CDATA[写脚本，判断变量或者某个值的时候，难免会用到截取的操作以下整理为字符串截取的几种方法 example1234# 定义一个变量var=http://www.google.com/onlineStudy.html# 注意 字符串截取的位置索引号 从1开始计算, 计算公式从0 #号截取，删除左边字符，保留右边字符(删除从左往右遇到的第一个匹配符以及左边的所有内容)1234567echo $&#123;var#*//&#125;# 注释如下 #号是运算符，*//表示从左边开始删除第一个// 号及左边的所有字符，即删除 http://# 输出结果:www.google.com/onlineStudy.html ##号截取，删除左边字符，保留右变字符(删除从左往右遇到的最后一个匹配符以及左边的所有内容)1234567echo $&#123;var##*/&#125;# 注释如下##运算符，*/ 标识从左边开始删除最后一个(最右边) /号及左边的所有字符# 输出结果:onlineStudy.html %号截取，删除右边字符，保留左边字符1234echo $&#123;var%/*&#125;%/* 表示从右边开始，删除第一个 / 号及右边的字符结果是：http://www.google.com %%号截取，删除右边字符，保留左边字符(删除从由往左遇到的最后一个匹配符以及右边所有内容)123echo $&#123;var%%/*&#125;%%/* 表示从右边开始，删除最后（最左边）一个 / 号及右边的字符结果是：http: 截取内容1234567891011121314echo $&#123;var:0:5&#125; # 0表示从左边第一个字符开始，5表示字符的总个数结果为: http:echo $&#123;var:7&#125; # 7表示左边第8个字符开始，一直到结束结果为: www.google.com/onlineStudy.htmlecho $&#123;var:0-7:3&#125; # 0-7表示右边算起第7个字符开始， 3表示字符的个数结果为: dy.echo $&#123;var:0-7&#125; # 0-7表示从右边算起第7个字符开始，一直到结束结果为: dy.htmlecho $&#123;var:0-1&#125; # 右边的第1个字符，到结束结果为: l]]></content>
+      <categories>
+        <category>linux高阶命令</category>
+      </categories>
+      <tags>
+        <tag>linux高阶命令</tag>
       </tags>
   </entry>
 </search>

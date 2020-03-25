@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="Changming&#39;s blogs">
 <meta property="og:description" content="记录下工作中遇到的nginx的正则表达式的书写案列">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-14T14:13:50.628Z">
+<meta property="og:updated_time" content="2019-09-12T13:31:03.989Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx中的正则匹配表达式案例">
 <meta name="twitter:description" content="记录下工作中遇到的nginx的正则表达式的书写案列">
@@ -411,7 +411,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  119
+                  341
                 </span>
               
 
@@ -452,8 +452,14 @@
 <p>记录下工作中遇到的<br>nginx的正则表达式的书写案列</p>
 <hr>
 <a id="more"></a>
-<p>前言1： 因受到cc攻击，所以在location匹配mobile-api，获取访问的头部信息，拒绝攻击端直接穿透后端服务器，配置如下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">location ^~ /mobile-api &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$http_user_agent</span> ~~* (app_android)|(app_ios)) &#123;</span><br><span class="line">        <span class="built_in">return</span> 403</span><br><span class="line">    &#125;</span><br><span class="line">    proxy_pass http://mobile-upstream;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 被cc攻击，通过代理服务器挡住请求 判断http_user_agent 符合哪些规则</span></span><br><span class="line"><span class="comment"># 写在location中</span></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$http_user_agent</span> !~* ((okhttp)|(app_((rn)|(ios)|(android))))) &#123;</span><br><span class="line">    <span class="built_in">return</span> 200 ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
+<p>注意:</p>
+<p>nginx在location 匹配中， ^~ = @ 后不能使用正则表达式</p>
+<h1 id="UA匹配"><a href="#UA匹配" class="headerlink" title="UA匹配"></a>UA匹配</h1><p>前言1： 因受到cc攻击，所以在location匹配mobile-api，获取访问的头部信息，拒绝攻击端直接穿透后端服务器，配置如下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">location ^~ /mobile-api &#123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="variable">$http_user_agent</span> ~~* (app_android)|(app_ios)) &#123;</span><br><span class="line">		<span class="built_in">return</span> 403</span><br><span class="line">	&#125;</span><br><span class="line">	proxy_pass http://mobile-upstream;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 被cc攻击，通过代理服务器挡住请求 判断http_user_agent 符合哪些规则</span></span><br><span class="line"><span class="comment"># 写在location中</span></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$http_user_agent</span> !~* ((okhttp)|(app_((rn)|(ios)|(android))))) &#123;</span><br><span class="line">    <span class="built_in">return</span> 200 ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>nginx的if语句判断多个条件同时成立的写法</p>
+<p>nginx的配置中不支持if条件的逻辑与 逻辑或运算，并且不支持if的嵌套语法，可以使用变量的方法来实现</p>
+<p>例子:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 错误的书写方式，只是为了理解想表达 设置的意思</span></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$remote_addr</span> ~ <span class="string">"^(12.34|56.78)"</span> &amp;&amp; <span class="variable">$http_user_agent</span> ~* <span class="string">"spider"</span>) &#123;</span><br><span class="line">    <span class="built_in">return</span> 403;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 正确通过set变量实现上面的想法</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> <span class="variable">$flag</span> 0;</span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$remote_addr</span> ~ <span class="string">"^(12.34|56.78)"</span>) &#123;</span><br><span class="line">    <span class="built_in">set</span> <span class="variable">$flag</span> <span class="string">"<span class="variable">$&#123;flag&#125;</span>1"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$http_user_agent</span> ~* <span class="string">"spider"</span>) &#123;</span><br><span class="line">    <span class="built_in">set</span> <span class="variable">$flag</span> <span class="string">"<span class="variable">$&#123;flag&#125;</span>2"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$flag</span> = <span class="string">"012"</span>) &#123;</span><br><span class="line">    <span class="built_in">return</span> 403;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="ip匹配"><a href="#ip匹配" class="headerlink" title="ip匹配"></a>ip匹配</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))&#123;3,3&#125;$/</span><br><span class="line">/(\d+)\.(\d+)\.(\d+)\.(\d+)/</span><br></pre></td></tr></table></figure>
+<h1 id="location匹配一级url后面的内容"><a href="#location匹配一级url后面的内容" class="headerlink" title="location匹配一级url后面的内容"></a>location匹配一级url后面的内容</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location ~* /static-file/.+\.(js|css|png)$ &#123;</span><br><span class="line">    proxy_pass                    http://yunweiops.com;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -595,8 +601,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -615,7 +630,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">97</span>
+                  <span class="site-state-item-count">106</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -626,7 +641,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/分类/index.html">
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -637,7 +652,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/标签/index.html">
-                  <span class="site-state-item-count">74</span>
+                  <span class="site-state-item-count">79</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -710,6 +725,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#UA匹配"><span class="nav-number">1.</span> <span class="nav-text">UA匹配</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ip匹配"><span class="nav-number">2.</span> <span class="nav-text">ip匹配</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#location匹配一级url后面的内容"><span class="nav-number">3.</span> <span class="nav-text">location匹配一级url后面的内容</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -723,7 +754,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -759,7 +790,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共 45.9k 字</span>
+  <span class="post-count">博客全站共 50k 字</span>
 </div>
 
         
