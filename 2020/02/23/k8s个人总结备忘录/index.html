@@ -92,18 +92,20 @@
 
 
 
-<meta name="description" content="整理下k8s在工作中使用的备忘录  好记性不如一个烂笔头">
+<meta name="description" content="记录下学习k8s的历程  好记性不如一个烂笔头">
 <meta name="keywords" content="k8s">
 <meta property="og:type" content="article">
 <meta property="og:title" content="k8s个人总结备忘录">
 <meta property="og:url" content="https://mrlichangming.github.io/2020/02/23/k8s个人总结备忘录/index.html">
 <meta property="og:site_name" content="Changming&#39;s blogs">
-<meta property="og:description" content="整理下k8s在工作中使用的备忘录  好记性不如一个烂笔头">
+<meta property="og:description" content="记录下学习k8s的历程  好记性不如一个烂笔头">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-02-23T04:51:29.877Z">
+<meta property="og:image" content="https://mrlichangming.github.io/images/k8s架构图.png">
+<meta property="og:updated_time" content="2020-03-31T00:28:34.629Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="k8s个人总结备忘录">
-<meta name="twitter:description" content="整理下k8s在工作中使用的备忘录  好记性不如一个烂笔头">
+<meta name="twitter:description" content="记录下学习k8s的历程  好记性不如一个烂笔头">
+<meta name="twitter:image" content="https://mrlichangming.github.io/images/k8s架构图.png">
 
 
 
@@ -411,7 +413,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  24
+                  135
                 </span>
               
 
@@ -449,10 +451,12 @@
 
       
         <hr>
-<p>整理下k8s在工作中使用的备忘录</p>
+<p>记录下学习k8s的历程</p>
 <hr>
 <p>好记性不如一个烂笔头</p>
 <a id="more"></a>
+<h1 id="基础概念部分"><a href="#基础概念部分" class="headerlink" title="基础概念部分"></a>基础概念部分</h1><h2 id="架构图"><a href="#架构图" class="headerlink" title="架构图"></a>架构图</h2><p>备注: 图来自devops学院  《基于Kubernetes构建企业容器云》 视频教程<br><img src="/images/k8s架构图.png" alt="k8s架构图"></p>
+<h2 id="各个组件说明"><a href="#各个组件说明" class="headerlink" title="各个组件说明"></a>各个组件说明</h2><p>API server<br>Scheduler<br>Control Manager<br>ETCD<br>Kubelet<br>kube-proxy<br>Docker Engine<br>kubelet: 每个工作节点运行的代理组件，确保容器都创建在pod中，kubelet 接收一组通过各类机制提供给它的 PodSpecs，确保这些 PodSpecs 中描述的容器处于运行状态且健康。kubelet 不会管理不是由 Kubernetes 创建的容器</p>
 
       
     </div>
@@ -595,8 +599,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -615,7 +628,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">106</span>
+                  <span class="site-state-item-count">109</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -710,6 +723,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础概念部分"><span class="nav-number">1.</span> <span class="nav-text">基础概念部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#架构图"><span class="nav-number">1.1.</span> <span class="nav-text">架构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#各个组件说明"><span class="nav-number">1.2.</span> <span class="nav-text">各个组件说明</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -759,7 +788,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共 50.1k 字</span>
+  <span class="post-count">博客全站共 51k 字</span>
 </div>
 
         

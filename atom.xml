@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://mrlichangming.github.io/"/>
-  <updated>2018-10-01T01:56:14.443Z</updated>
+  <updated>2020-03-31T00:34:49.669Z</updated>
   <id>https://mrlichangming.github.io/</id>
   
   <author>
@@ -15,6 +15,42 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Centos7升级内核</title>
+    <link href="https://mrlichangming.github.io/2020/03/31/Centos7%E5%8D%87%E7%BA%A7%E5%86%85%E6%A0%B8/"/>
+    <id>https://mrlichangming.github.io/2020/03/31/Centos7升级内核/</id>
+    <published>2020-03-31T00:33:11.000Z</published>
+    <updated>2020-03-31T00:34:49.669Z</updated>
+    
+    <summary type="html">
+    
+      &lt;hr&gt;
+&lt;p&gt;Centos7系统升级系统内核&lt;/p&gt;
+&lt;hr&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Linux当前PS终端美化</title>
+    <link href="https://mrlichangming.github.io/2020/03/31/Linux%E5%BD%93%E5%89%8DPS%E7%BB%88%E7%AB%AF%E7%BE%8E%E5%8C%96/"/>
+    <id>https://mrlichangming.github.io/2020/03/31/Linux当前PS终端美化/</id>
+    <published>2020-03-31T00:29:48.000Z</published>
+    <updated>2020-03-31T00:32:48.248Z</updated>
+    
+    <summary type="html">
+    
+      &lt;hr&gt;
+&lt;p&gt;PS终端美化备忘录&lt;/p&gt;
+&lt;hr&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>GlusterFS使用中的一些命令积累</title>
@@ -50,12 +86,12 @@
     <link href="https://mrlichangming.github.io/2020/02/23/k8s%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93%E5%A4%87%E5%BF%98%E5%BD%95/"/>
     <id>https://mrlichangming.github.io/2020/02/23/k8s个人总结备忘录/</id>
     <published>2020-02-23T04:50:08.000Z</published>
-    <updated>2020-02-23T04:51:29.877Z</updated>
+    <updated>2020-03-31T00:28:34.629Z</updated>
     
     <summary type="html">
     
       &lt;hr&gt;
-&lt;p&gt;整理下k8s在工作中使用的备忘录&lt;/p&gt;
+&lt;p&gt;记录下学习k8s的历程&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;好记性不如一个烂笔头&lt;/p&gt;
     
@@ -358,6 +394,32 @@
   </entry>
   
   <entry>
+    <title>生产环境swarm集群的节点正常下线操作</title>
+    <link href="https://mrlichangming.github.io/2019/06/26/%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83swarm%E9%9B%86%E7%BE%A4%E7%9A%84%E8%8A%82%E7%82%B9%E6%AD%A3%E5%B8%B8%E4%B8%8B%E7%BA%BF%E6%93%8D%E4%BD%9C/"/>
+    <id>https://mrlichangming.github.io/2019/06/26/生产环境swarm集群的节点正常下线操作/</id>
+    <published>2019-06-26T03:13:40.000Z</published>
+    <updated>2020-03-30T09:45:38.455Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="docker" scheme="https://mrlichangming.github.io/categories/docker/"/>
+    
+    
+      <category term="docker swarm" scheme="https://mrlichangming.github.io/tags/docker-swarm/"/>
+    
+  </entry>
+  
+  <entry>
     <title>openresty的lua代码备忘录</title>
     <link href="https://mrlichangming.github.io/2019/06/04/openresty%E7%9A%84lua%E4%BB%A3%E7%A0%81%E5%A4%87%E5%BF%98%E5%BD%95/"/>
     <id>https://mrlichangming.github.io/2019/06/04/openresty的lua代码备忘录/</id>
@@ -398,73 +460,6 @@
     
     
       <category term="yum" scheme="https://mrlichangming.github.io/tags/yum/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>kibana查询语法备忘录</title>
-    <link href="https://mrlichangming.github.io/2019/04/09/kibana%E6%9F%A5%E8%AF%A2%E8%AF%AD%E6%B3%95%E5%A4%87%E5%BF%98%E5%BD%95/"/>
-    <id>https://mrlichangming.github.io/2019/04/09/kibana查询语法备忘录/</id>
-    <published>2019-04-09T01:01:39.000Z</published>
-    <updated>2019-04-09T01:06:16.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;hr&gt;
-&lt;p&gt;使用kibana查询日志 语法备忘录&lt;/p&gt;
-&lt;hr&gt;
-    
-    </summary>
-    
-      <category term="ELK" scheme="https://mrlichangming.github.io/categories/ELK/"/>
-    
-    
-      <category term="kibana" scheme="https://mrlichangming.github.io/tags/kibana/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>nginx的rewrite用法详解-摘抄备忘录</title>
-    <link href="https://mrlichangming.github.io/2019/03/31/nginx%E7%9A%84rewrite%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3-%E6%91%98%E6%8A%84%E5%A4%87%E5%BF%98%E5%BD%95/"/>
-    <id>https://mrlichangming.github.io/2019/03/31/nginx的rewrite用法详解-摘抄备忘录/</id>
-    <published>2019-03-31T11:12:31.000Z</published>
-    <updated>2019-03-31T11:36:42.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;hr&gt;
-&lt;p&gt;备忘录: nginx的rewrite指令详解&lt;/p&gt;
-&lt;hr&gt;
-    
-    </summary>
-    
-      <category term="nignx" scheme="https://mrlichangming.github.io/categories/nignx/"/>
-    
-    
-      <category term="nginx的rewrite指令" scheme="https://mrlichangming.github.io/tags/nginx%E7%9A%84rewrite%E6%8C%87%E4%BB%A4/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Nginx安全认证-设置用户名和密码进行web访问</title>
-    <link href="https://mrlichangming.github.io/2019/03/22/Nginx%E5%AE%89%E5%85%A8%E8%AE%A4%E8%AF%81-%E8%AE%BE%E7%BD%AE%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81%E8%BF%9B%E8%A1%8Cweb%E8%AE%BF%E9%97%AE/"/>
-    <id>https://mrlichangming.github.io/2019/03/22/Nginx安全认证-设置用户名和密码进行web访问/</id>
-    <published>2019-03-22T06:35:09.000Z</published>
-    <updated>2019-03-22T06:53:01.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;hr&gt;
-&lt;p&gt;有一些服务的监控软件，默认是没有权限管理功能，比如ELK rocketmq-consle web控制台&lt;/p&gt;
-&lt;p&gt;所以使用nginx作为代理，部署基于用户认证机制登录控制台&lt;/p&gt;
-&lt;hr&gt;
-    
-    </summary>
-    
-      <category term="nginx" scheme="https://mrlichangming.github.io/categories/nginx/"/>
-    
-    
-      <category term="nginx" scheme="https://mrlichangming.github.io/tags/nginx/"/>
     
   </entry>
   

@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Centos7升级内核]]></title>
+    <url>%2F2020%2F03%2F31%2FCentos7%E5%8D%87%E7%BA%A7%E5%86%85%E6%A0%B8%2F</url>
+    <content type="text"><![CDATA[Centos7系统升级系统内核 参考链接地址centos7升级内核至最新-博客园]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Linux当前PS终端美化]]></title>
+    <url>%2F2020%2F03%2F31%2FLinux%E5%BD%93%E5%89%8DPS%E7%BB%88%E7%AB%AF%E7%BE%8E%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[PS终端美化备忘录 PS112]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[GlusterFS使用中的一些命令积累]]></title>
     <url>%2F2020%2F03%2F25%2FGlusterFS%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%91%BD%E4%BB%A4%E7%A7%AF%E7%B4%AF%2F</url>
     <content type="text"><![CDATA[记录下GlusterFS的命令 分布式文件系统GlusterFS实战，参考文档： CHEGVA博客链接 install1234yum install centos-release-glusteryum install -y glusterfs glusterfs-server glusterfs-fuse glusterfs-rdmasystemctl start glusterd.servicesystemctl enable glusterd.service configuration123456789101112131415161718192021222324252627282930313233343536373839404142# 查看glusterfs版本信息glusterfs -V# 将节点加入存储池# 节点加入防火墙的时候，需要开放防火墙端口：firewall-cmd --add-service=glusterfsgluster peer probe lg1gluster peer probe lg2# 创建volume , 复制几份replica后的数字就是几 分布式复制模式gluster volume create test replica 2 transport tcp lg1:/var/test/data lg2:/var/test/data lg3:/var/test/data lg4:/var/test/data # 查看刚才创建卷gluster volume info#启动刚才创建的卷组 gluster volume start test #查看各节点状态gluster peer status ``` # gluster 性能调优：开启 指定 volume 的配额： (test 为 volume 名称)```bashgluster volume quota test enable限制 test 中 / (既总目录) 最大使用 80GB 空间gluster volume quota test limit-usage / 80GB# 设置 cache 4GBgluster volume set test performance.cache-size 4GB# 开启 异步 ， 后台操作gluster volume set test performance.flush-behind on# 设置 io 线程 32gluster volume set test performance.io-thread-count 32# 设置 回写 (写数据时间，先写入缓存内，再写入硬盘)gluster volume set test performance.write-behind on Mounts1mount -t glusterfs 127.0.0.1:test /var/data]]></content>
@@ -14,7 +24,7 @@
   <entry>
     <title><![CDATA[k8s个人总结备忘录]]></title>
     <url>%2F2020%2F02%2F23%2Fk8s%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93%E5%A4%87%E5%BF%98%E5%BD%95%2F</url>
-    <content type="text"><![CDATA[整理下k8s在工作中使用的备忘录 好记性不如一个烂笔头]]></content>
+    <content type="text"><![CDATA[记录下学习k8s的历程 好记性不如一个烂笔头 基础概念部分架构图备注: 图来自devops学院 《基于Kubernetes构建企业容器云》 视频教程 各个组件说明API serverSchedulerControl ManagerETCDKubeletkube-proxyDocker Enginekubelet: 每个工作节点运行的代理组件，确保容器都创建在pod中，kubelet 接收一组通过各类机制提供给它的 PodSpecs，确保这些 PodSpecs 中描述的容器处于运行状态且健康。kubelet 不会管理不是由 Kubernetes 创建的容器]]></content>
       <categories>
         <category>kubernetes</category>
       </categories>
@@ -163,6 +173,17 @@
       </categories>
       <tags>
         <tag>linux内核</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[生产环境swarm集群的节点正常下线操作]]></title>
+    <url>%2F2019%2F06%2F26%2F%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83swarm%E9%9B%86%E7%BE%A4%E7%9A%84%E8%8A%82%E7%82%B9%E6%AD%A3%E5%B8%B8%E4%B8%8B%E7%BA%BF%E6%93%8D%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[检查业务高可用配置在重启容器服务节点前，建议先检查或修正如下业务配置，以避免节点重启触发单点异常，进而导致业务可用性受损： 配置数据持久化策略建议为日志、业务配置等重要数据配置外部卷进行数据持久化，以避免容器重建后，原有容器被删除引发数据丢失。 关于容器服务数据卷的使用，可以参阅 产品文档。 配置重启策略建议为相应业务服务配置 restart: always 自重启策略，以便节点重启后，相应容器能自动拉起。 配置高可用策略建议结合产品架构，为相应业务配置 可用区调度(availability:az 属性)、指定节点调度（affinity、constraint 属性) 和 指定多节点调度（constraint 属性） 等亲和性、互斥性策略，以避免由于相应节点重启引发单点异常。比如，对于数据库业务，建议主备或多实例部署，然后结合前述特性，确保不同实例落在不同节点上，并且相关节点不会同时重启。 操作最佳实践建议首先参阅前述说明，检查业务高可用性配置。然后 在每个节点上（切忌同时对多个节点进行操作），依次按如下步骤操作： 4.1 快照备份：建议先对节点所有关联磁盘创建最新快照进行备份，以避免由于长时间未重启服务器，导致节点关机后启动过程中出现异常导致业务可用性受损。 4.2 验证业务容器配置有效性（Swarm Mode 集群忽略）：对于非 Swarm Mode 集群，重启节点上的相应业务容器，确保容器能正常被重新拉起。说明：Swarm Mode 集群的最小控制操作单元是服务。所以，不能直接在 Swarm Mode 集群节点上通过 docker start/stop 等操作直接处理业务容器，否则会引发相关报错。正确的做法，是在 容器服务管理控制台 通过重新 调整应用的 REPLICAS 的方式来对业务做自动调整。 4.3 修改节点角色（Swarm Mode 集群）如果相应节点是 Swarm Mode 集群内的 Manager 节点，则先将其 设置为 Worker 节点。 4.4 验证 Docker Engine 运行有效性尝试重启 docker daemon ，确保 docker enginger 能正常重新启动。 4.5 执行相关运维操作执行计划内的相关运维操作，比如业务代码更新、系统补丁安装、系统配置调整等。 4.6 重启节点在控制台或系统内部，正常重启节点。 4.7 重启后状态检查重启完节点后，到 容器服务管理控制台 ,检查节点健康状态，检查业务容器运行状态。 4.8 回调节点角色（Swarm Mode 集群）如果相应节点是 Swarm Mode 集群内的 Manager 节点，则先将其重新 设置为 Manager 节点。]]></content>
+      <categories>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>docker swarm</tag>
       </tags>
   </entry>
   <entry>
