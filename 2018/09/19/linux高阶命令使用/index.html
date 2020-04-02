@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="Changming&#39;s blogs">
 <meta property="og:description" content="编写shell脚本中，常用的一些awk grep getops 语法  awk1234567tailf access.log | awk &apos;substr($3,1,3)&amp;gt;200&apos;# 查看访问日志中，过滤非200状态码的日志请求# substr是一个内置函数substr($4,20)  # 表示从第四个字段里的第20个字符开始，一直到设定的分隔符 结束substr($4,1,3) # 表示从">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-07T08:43:14.609Z">
+<meta property="og:updated_time" content="2020-04-01T12:26:47.016Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux高阶命令使用">
 <meta name="twitter:description" content="编写shell脚本中，常用的一些awk grep getops 语法  awk1234567tailf access.log | awk &apos;substr($3,1,3)&amp;gt;200&apos;# 查看访问日志中，过滤非200状态码的日志请求# substr是一个内置函数substr($4,20)  # 表示从第四个字段里的第20个字符开始，一直到设定的分隔符 结束substr($4,1,3) # 表示从">
@@ -411,7 +411,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1k
+                  1.1k
                 </span>
               
 
@@ -427,7 +427,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  5
                 </span>
               
             </div>
@@ -470,7 +470,7 @@
 <h1 id="截取30分钟内的日志信息"><a href="#截取30分钟内的日志信息" class="headerlink" title="截取30分钟内的日志信息"></a>截取30分钟内的日志信息</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 截取三十分钟日志</span></span><br><span class="line">_befor=$(date -d <span class="string">'-30 minutes'</span> <span class="string">"+%F %T"</span>)</span><br><span class="line">_now=$(date <span class="string">"+%F %T"</span>)</span><br><span class="line">awk -F <span class="string">'\\[|\\]'</span> -v _befor=<span class="string">"<span class="variable">$&#123;_befor&#125;</span>"</span> -v _now=<span class="string">"<span class="variable">$&#123;_now&#125;</span>"</span> <span class="string">'$2 &gt; _befor &amp;&amp; $2 &lt; _now&#123;print $0&#125;'</span> /var/<span class="built_in">log</span>/nginx//access.log</span><br></pre></td></tr></table></figure>
 <h1 id="获取本机的内网ip地址"><a href="#获取本机的内网ip地址" class="headerlink" title="获取本机的内网ip地址"></a>获取本机的内网ip地址</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip addr | grep inet | egrep -v <span class="string">'(127.0.0.1|inet6|docker)'</span> | awk <span class="string">'&#123;print $2&#125;'</span> | tr -d <span class="string">"addr:"</span> | head -n 1 | cut -d / -f1</span><br></pre></td></tr></table></figure>
 <h1 id="显示目录结构各级的权限"><a href="#显示目录结构各级的权限" class="headerlink" title="显示目录结构各级的权限"></a>显示目录结构各级的权限</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">namei -om /path/to/check</span><br></pre></td></tr></table></figure>
-
+<h1 id="cat命令输入多行文件到文件中"><a href="#cat命令输入多行文件到文件中" class="headerlink" title="cat命令输入多行文件到文件中"></a>cat命令输入多行文件到文件中</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo</span><br><span class="line">[kubernetes]</span><br><span class="line">name=Kubernetes</span><br><span class="line">baseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br><span class="line">repo_gpgcheck=0</span><br><span class="line">gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg</span><br><span class="line">       http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -745,7 +745,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#awk"><span class="nav-number">1.</span> <span class="nav-text">awk</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#getops"><span class="nav-number">2.</span> <span class="nav-text">getops</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#fgrep"><span class="nav-number">3.</span> <span class="nav-text">fgrep</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#du命令"><span class="nav-number">4.</span> <span class="nav-text">du命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pkill"><span class="nav-number">5.</span> <span class="nav-text">pkill</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#脚本执行，获取当前路径"><span class="nav-number">6.</span> <span class="nav-text">脚本执行，获取当前路径</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#echo输出颜色"><span class="nav-number">7.</span> <span class="nav-text">echo输出颜色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sed获取域名解析的ip地址"><span class="nav-number">8.</span> <span class="nav-text">sed获取域名解析的ip地址</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tr分割符"><span class="nav-number">9.</span> <span class="nav-text">tr分割符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#eval命令"><span class="nav-number">10.</span> <span class="nav-text">eval命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查看timewait的连接数"><span class="nav-number">11.</span> <span class="nav-text">查看timewait的连接数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取系统当前时间"><span class="nav-number">12.</span> <span class="nav-text">获取系统当前时间</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取系统时间-前30分钟"><span class="nav-number">13.</span> <span class="nav-text">获取系统时间(前30分钟)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#截取30分钟内的日志信息"><span class="nav-number">14.</span> <span class="nav-text">截取30分钟内的日志信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取本机的内网ip地址"><span class="nav-number">15.</span> <span class="nav-text">获取本机的内网ip地址</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#显示目录结构各级的权限"><span class="nav-number">16.</span> <span class="nav-text">显示目录结构各级的权限</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#awk"><span class="nav-number">1.</span> <span class="nav-text">awk</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#getops"><span class="nav-number">2.</span> <span class="nav-text">getops</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#fgrep"><span class="nav-number">3.</span> <span class="nav-text">fgrep</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#du命令"><span class="nav-number">4.</span> <span class="nav-text">du命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pkill"><span class="nav-number">5.</span> <span class="nav-text">pkill</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#脚本执行，获取当前路径"><span class="nav-number">6.</span> <span class="nav-text">脚本执行，获取当前路径</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#echo输出颜色"><span class="nav-number">7.</span> <span class="nav-text">echo输出颜色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sed获取域名解析的ip地址"><span class="nav-number">8.</span> <span class="nav-text">sed获取域名解析的ip地址</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tr分割符"><span class="nav-number">9.</span> <span class="nav-text">tr分割符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#eval命令"><span class="nav-number">10.</span> <span class="nav-text">eval命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查看timewait的连接数"><span class="nav-number">11.</span> <span class="nav-text">查看timewait的连接数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取系统当前时间"><span class="nav-number">12.</span> <span class="nav-text">获取系统当前时间</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取系统时间-前30分钟"><span class="nav-number">13.</span> <span class="nav-text">获取系统时间(前30分钟)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#截取30分钟内的日志信息"><span class="nav-number">14.</span> <span class="nav-text">截取30分钟内的日志信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取本机的内网ip地址"><span class="nav-number">15.</span> <span class="nav-text">获取本机的内网ip地址</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#显示目录结构各级的权限"><span class="nav-number">16.</span> <span class="nav-text">显示目录结构各级的权限</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cat命令输入多行文件到文件中"><span class="nav-number">17.</span> <span class="nav-text">cat命令输入多行文件到文件中</span></a></li></ol></div>
             
 
           </div>
@@ -801,7 +801,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共 51k 字</span>
+  <span class="post-count">博客全站共 52.8k 字</span>
 </div>
 
         

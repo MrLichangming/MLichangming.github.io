@@ -4,15 +4,20 @@
 
     
   <url>
-    <loc>https://mrlichangming.github.io/2020/03/31/Centos7%E5%8D%87%E7%BA%A7%E5%86%85%E6%A0%B8/</loc>
-    <lastmod>2020-03-31T00:34:49.669Z</lastmod>
+    <loc>https://mrlichangming.github.io/2020/02/23/k8s%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93%E5%A4%87%E5%BF%98%E5%BD%95/</loc>
+    <lastmod>2020-04-02T00:58:24.709Z</lastmod>
     <data>
         <display>
-        <title>Centos7升级内核</title>
-        <pubTime>2020-03-31T00:33:11.000Z</pubTime>
+        <title>k8s个人总结备忘录</title>
+        <pubTime>2020-02-23T04:50:08.000Z</pubTime>
         
+        <tag>k8s</tag>
+         
          
            
+             
+              <breadCrumb title="kubernetes" url="https://mrlichangming.github.io/categories/kubernetes/"/>
+          
         </display>
     </data>
     </url>
@@ -20,7 +25,7 @@
     
   <url>
     <loc>https://mrlichangming.github.io/2020/03/31/Linux%E5%BD%93%E5%89%8DPS%E7%BB%88%E7%AB%AF%E7%BE%8E%E5%8C%96/</loc>
-    <lastmod>2020-03-31T00:32:48.248Z</lastmod>
+    <lastmod>2020-04-01T12:29:40.942Z</lastmod>
     <data>
         <display>
         <title>Linux当前PS终端美化</title>
@@ -34,20 +39,35 @@
 
     
   <url>
-    <loc>https://mrlichangming.github.io/2020/02/23/k8s%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93%E5%A4%87%E5%BF%98%E5%BD%95/</loc>
-    <lastmod>2020-03-31T00:28:34.629Z</lastmod>
+    <loc>https://mrlichangming.github.io/2018/09/19/linux%E9%AB%98%E9%98%B6%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2020-04-01T12:26:47.016Z</lastmod>
     <data>
         <display>
-        <title>k8s个人总结备忘录</title>
-        <pubTime>2020-02-23T04:50:08.000Z</pubTime>
+        <title>linux高阶命令使用</title>
+        <pubTime>2018-09-19T04:35:18.000Z</pubTime>
         
-        <tag>k8s</tag>
+        <tag>awk getopts</tag>
          
          
            
              
-              <breadCrumb title="kubernetes" url="https://mrlichangming.github.io/categories/kubernetes/"/>
+              <breadCrumb title="linux高阶命令" url="https://mrlichangming.github.io/categories/linux%E9%AB%98%E9%98%B6%E5%91%BD%E4%BB%A4/"/>
           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mrlichangming.github.io/2020/03/31/Centos7%E5%8D%87%E7%BA%A7%E5%86%85%E6%A0%B8/</loc>
+    <lastmod>2020-03-31T00:34:49.669Z</lastmod>
+    <data>
+        <display>
+        <title>Centos7升级内核</title>
+        <pubTime>2020-03-31T00:33:11.000Z</pubTime>
+        
+         
+           
         </display>
     </data>
     </url>
@@ -350,26 +370,6 @@
            
              
               <breadCrumb title="openresty" url="https://mrlichangming.github.io/categories/openresty/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://mrlichangming.github.io/2018/09/19/linux%E9%AB%98%E9%98%B6%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8/</loc>
-    <lastmod>2019-08-07T08:43:14.609Z</lastmod>
-    <data>
-        <display>
-        <title>linux高阶命令使用</title>
-        <pubTime>2018-09-19T04:35:18.000Z</pubTime>
-        
-        <tag>awk getopts</tag>
-         
-         
-           
-             
-              <breadCrumb title="linux高阶命令" url="https://mrlichangming.github.io/categories/linux%E9%AB%98%E9%98%B6%E5%91%BD%E4%BB%A4/"/>
           
         </display>
     </data>
