@@ -95,8 +95,8 @@
 <meta name="description" content="记录下学习k8s的历程  好记性不如一个烂笔头">
 <meta name="keywords" content="k8s">
 <meta property="og:type" content="article">
-<meta property="og:title" content="k8s个人总结备忘录">
-<meta property="og:url" content="https://mrlichangming.github.io/2020/02/23/k8s个人总结备忘录/index.html">
+<meta property="og:title" content="k8s基础入门学习记录">
+<meta property="og:url" content="https://mrlichangming.github.io/2020/02/23/kkubernetes基础入门学习记录/index.html">
 <meta property="og:site_name" content="Changming&#39;s blogs">
 <meta property="og:description" content="记录下学习k8s的历程  好记性不如一个烂笔头">
 <meta property="og:locale" content="zh-Hans">
@@ -104,9 +104,9 @@
 <meta property="og:image" content="https://mrlichangming.github.io/images/k8s-pods.png">
 <meta property="og:image" content="https://mrlichangming.github.io/images/k8s-service_label.png">
 <meta property="og:image" content="https://mrlichangming.github.io/images/k8s-LabelSelector.png">
-<meta property="og:updated_time" content="2020-04-02T00:58:24.709Z">
+<meta property="og:updated_time" content="2020-04-04T14:42:16.227Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="k8s个人总结备忘录">
+<meta name="twitter:title" content="k8s基础入门学习记录">
 <meta name="twitter:description" content="记录下学习k8s的历程  好记性不如一个烂笔头">
 <meta name="twitter:image" content="https://mrlichangming.github.io/images/k8s架构图.png">
 
@@ -139,13 +139,13 @@
 
 
 
-  <link rel="canonical" href="https://mrlichangming.github.io/2020/02/23/k8s个人总结备忘录/"/>
+  <link rel="canonical" href="https://mrlichangming.github.io/2020/02/23/kkubernetes基础入门学习记录/"/>
 
 
 
 
 
-  <title>k8s个人总结备忘录 | Changming's blogs</title>
+  <title>k8s基础入门学习记录 | Changming's blogs</title>
   
 
 
@@ -318,7 +318,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mrlichangming.github.io/2020/02/23/k8s个人总结备忘录/">
+    <link itemprop="mainEntityOfPage" href="https://mrlichangming.github.io/2020/02/23/kkubernetes基础入门学习记录/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李常明">
@@ -335,7 +335,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">k8s个人总结备忘录</h1>
+          <h1 class="post-title" itemprop="name headline">k8s基础入门学习记录</h1>
         
 
         <div class="post-meta">
@@ -388,8 +388,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/02/23/k8s个人总结备忘录/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/23/k8s个人总结备忘录/" itemprop="commentCount"></span>
+                <a href="/2020/02/23/kkubernetes基础入门学习记录/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/02/23/kkubernetes基础入门学习记录/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -416,7 +416,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.8k
+                  2.5k
                 </span>
               
 
@@ -432,7 +432,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  7
+                  9
                 </span>
               
             </div>
@@ -463,7 +463,37 @@
 <h2 id="使用kubeadm安装备忘录"><a href="#使用kubeadm安装备忘录" class="headerlink" title="使用kubeadm安装备忘录"></a>使用kubeadm安装备忘录</h2><p>安装组件为 kubeadm kubelet kubectl</p>
 <p>安装 calico 网络插件</p>
 <p>重新初始化集群使用命令  kubeadm reset -f</p>
-<h2 id="各个组件说明"><a href="#各个组件说明" class="headerlink" title="各个组件说明"></a>各个组件说明</h2><p>API server<br>Scheduler<br>Control Manager<br>ETCD<br>Kubelet: 部署在每一个工作节点，具有管理worker节点并负责和master通信<br>kube-proxy<br>Docker Engine<br>kubelet: 每个工作节点运行的代理组件，确保容器都创建在pod中，kubelet 接收一组通过各类机制提供给它的 PodSpecs，确保这些 PodSpecs 中描述的容器处于运行状态且健康。kubelet 不会管理不是由 Kubernetes 创建的容器</p>
+<h2 id="各个组件说明"><a href="#各个组件说明" class="headerlink" title="各个组件说明"></a>各个组件说明</h2><blockquote>
+<p>master节点</p>
+</blockquote>
+<blockquote>
+<ul>
+<li><p>API server: 主节点上负责提供 Kubernetes API 服务的组件；它是 Kubernetes 控制面的前端。kube-apiserver 在设计上考虑了水平扩缩的需要。 换言之，通过部署多个实例可以实现扩缩      </p>
+</li>
+<li><p>Scheduler: 根据策略调度，控制pod启动在哪个工作节点上，调度决策考虑的因素包括单个 Pod 和 Pod 集合的资源需求、硬件/软件/策略约束、亲和性和反亲和性规范、数据位置、工作负载间的干扰和最后时限</p>
+</li>
+<li><p>Control Manager: 主节点上运行控制器的组件，从逻辑上讲，每个<a href="https://kubernetes.io/docs/admin/kube-controller-manager/" target="_blank" rel="noopener">控制器</a>都是一个单独的进程，但是为了降低复杂性，它们都被编译到同一个可执行文件，并在一个进程中运行。</p>
+<p>这些控制器包括:</p>
+<ul>
+<li>节点控制器（Node Controller）: 负责在节点出现故障时进行通知和响应</li>
+<li>副本控制器（Replication Controller）: 负责为系统中的每个副本控制器对象维护正确数量的 Pod</li>
+<li>端点控制器（Endpoints Controller）: 填充端点(Endpoints)对象(即加入 Service 与 Pod)</li>
+<li>服务帐户和令牌控制器（Service Account &amp; Token Controllers）: 为新的命名空间创建默认帐户和 API 访问令牌</li>
+</ul>
+</li>
+<li><p>ETCD: etcd is a etcd 是兼具一致性和高可用性的键值数据库，可以作为保存 Kubernetes 所有集群数据的后台数据库</p>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>node节点</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>kube-proxy: 集群中每个节点上运行的网络代理，实现kubernetes service 概念的一部分</li>
+<li>kubelet: 部署在每一个工作节点，具有管理worker节点并负责和master通信,每个工作节点运行的代理组件，确保容器都创建在pod中，kubelet 接收一组通过各类机制提供给它的 PodSpecs，确保这些 PodSpecs 中描述的容器处于运行状态且健康。kubelet 不会管理不是由 Kubernetes 创建的容器</li>
+</ul>
+</blockquote>
 <h1 id="Pods-Nodes概述"><a href="#Pods-Nodes概述" class="headerlink" title="Pods/Nodes概述"></a>Pods/Nodes概述</h1><p>Pods是k8s比较抽象的最小的工作单元， pod中可以包含多个container，多个container存在于pod中，pod中的容器共享同一个ip地址和端口空间(同一pod中的不同container端口不能相互冲突)</p>
 <p><img src="/images/k8s-pods.png" alt="Pod说明图"></p>
 <p>通过上图，简单总结下就是</p>
@@ -497,6 +527,18 @@
 <h2 id="查看pod的日志"><a href="#查看pod的日志" class="headerlink" title="查看pod的日志"></a>查看pod的日志</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># kubectl logs Pod名称</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#查看名称为nginx-pod-XXXXXXX的Pod内的容器打印的日志</span></span><br><span class="line"><span class="comment">#本案例中的 nginx-pod 没有输出日志，所以您看到的结果是空的</span></span><br><span class="line">kubectl logs -f nginx-pod-XXXXXXX</span><br></pre></td></tr></table></figure>
 <h1 id="kube-exec-进入容器"><a href="#kube-exec-进入容器" class="headerlink" title="kube exec 进入容器"></a>kube exec 进入容器</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># kubectl exec Pod名称 操作命令</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在名称为nginx-pod-xxxxxx的Pod中运行bash</span></span><br><span class="line">kubectl <span class="built_in">exec</span> -it nginx-pod-xxxxxx /bin/bash</span><br></pre></td></tr></table></figure>
 <h1 id="学习的第一个deployment-yaml文件"><a href="#学习的第一个deployment-yaml文件" class="headerlink" title="学习的第一个deployment yaml文件"></a>学习的第一个deployment yaml文件</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps/v1	<span class="comment">#与k8s集群版本有关，使用 kubectl api-versions 即可查看当前集群支持的版本</span></span><br><span class="line">kind: Deployment	<span class="comment">#该配置的类型，我们使用的是 Deployment</span></span><br><span class="line">metadata:	        <span class="comment">#译名为元数据，即 Deployment 的一些基本属性和信息</span></span><br><span class="line">  name: nginx-deployment	<span class="comment">#Deployment 的名称</span></span><br><span class="line">  labels:	    <span class="comment">#标签，可以灵活定位一个或多个资源，其中key和value均可自定义，可以定义多组，目前不需要理解</span></span><br><span class="line">    app: nginx	<span class="comment">#为该Deployment设置key为app，value为nginx的标签</span></span><br><span class="line">spec:	        <span class="comment">#这是关于该Deployment的描述，可以理解为你期待该Deployment在k8s中如何使用</span></span><br><span class="line">  replicas: 1	<span class="comment">#使用该Deployment创建一个应用程序实例</span></span><br><span class="line">  selector:	    <span class="comment">#标签选择器，与上面的标签共同作用，目前不需要理解</span></span><br><span class="line">    matchLabels: <span class="comment">#选择包含标签app:nginx的资源</span></span><br><span class="line">      app: nginx</span><br><span class="line">  template:	    <span class="comment">#这是选择或创建的Pod的模板</span></span><br><span class="line">    metadata:	<span class="comment">#Pod的元数据</span></span><br><span class="line">      labels:	<span class="comment">#Pod的标签，上面的selector即选择包含标签app:nginx的Pod</span></span><br><span class="line">        app: nginx</span><br><span class="line">    spec:	    <span class="comment">#期望Pod实现的功能（即在pod中部署）</span></span><br><span class="line">      containers:	<span class="comment">#生成container，与docker中的container是同一种</span></span><br><span class="line">      - name: nginx	<span class="comment">#container的名称</span></span><br><span class="line">        image: nginx:1.7.9	<span class="comment">#使用镜像nginx:1.7.9创建container，该container默认80端口可访问</span></span><br></pre></td></tr></table></figure>
+<h1 id="为nginx-deployment创建一个service，提供外部访问"><a href="#为nginx-deployment创建一个service，提供外部访问" class="headerlink" title="为nginx-deployment创建一个service，提供外部访问"></a>为nginx-deployment创建一个service，提供外部访问</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: nginx-service	#Service 的名称</span><br><span class="line">  labels:     	#Service 自己的标签</span><br><span class="line">    app: nginx	#为该 Service 设置 key 为 app，value 为 nginx 的标签</span><br><span class="line">spec:	    #这是关于该 Service 的定义，描述了 Service 如何选择 Pod，如何被访问</span><br><span class="line">  selector:	    #标签选择器</span><br><span class="line">    app: nginx	#选择包含标签 app:nginx 的 Pod</span><br><span class="line">  ports:</span><br><span class="line">  - name: nginx-port	#端口的名字</span><br><span class="line">    protocol: TCP	    #协议类型 TCP/UDP</span><br><span class="line">    port: 80	        #集群内的其他容器组可通过 80 端口访问 Service</span><br><span class="line">    nodePort: 32600   #通过任意节点的 32600 端口访问 Service</span><br><span class="line">    targetPort: 80	#将请求转发到匹配 Pod 的 80 端口</span><br><span class="line">  type: NodePort	#Serive的类型，ClusterIP/NodePort/LoaderBalancer</span><br></pre></td></tr></table></figure>
+<p>执行命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f nginx-service.yaml</span><br></pre></td></tr></table></figure>
+<p>查看刚创建的service</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get services -o wide</span><br></pre></td></tr></table></figure>
+<p>可查看到名称为 nginx-service 的服务</p>
+<p>访问服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl  http://任何集群ip:32600</span><br></pre></td></tr></table></figure>
+<h1 id="kubernetes的滚动更新说明"><a href="#kubernetes的滚动更新说明" class="headerlink" title="kubernetes的滚动更新说明"></a>kubernetes的滚动更新说明</h1><blockquote>
+<p>kubernetes的滚动更新，会启动一个新的pod，并分配新的ip，确保启动成功后，然后下线一个旧的pod，直到 和当初deployment部署的副本数量保持一致</p>
+</blockquote>
+
       
     </div>
     
@@ -771,7 +813,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#学习资源路径"><span class="nav-number">1.</span> <span class="nav-text">学习资源路径</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基础概念部分"><span class="nav-number">2.</span> <span class="nav-text">基础概念部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#架构图"><span class="nav-number">2.1.</span> <span class="nav-text">架构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用kubeadm安装备忘录"><span class="nav-number">2.2.</span> <span class="nav-text">使用kubeadm安装备忘录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#各个组件说明"><span class="nav-number">2.3.</span> <span class="nav-text">各个组件说明</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pods-Nodes概述"><span class="nav-number">3.</span> <span class="nav-text">Pods/Nodes概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Service的概念"><span class="nav-number">4.</span> <span class="nav-text">Service的概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令学习说明"><span class="nav-number">5.</span> <span class="nav-text">命令学习说明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#获取pod相关命令信息"><span class="nav-number">5.1.</span> <span class="nav-text">获取pod相关命令信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取当前集群支持的版本"><span class="nav-number">5.2.</span> <span class="nav-text">获取当前集群支持的版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取deployments"><span class="nav-number">5.3.</span> <span class="nav-text">获取deployments</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看资源的详细信息"><span class="nav-number">5.4.</span> <span class="nav-text">查看资源的详细信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看pod的日志"><span class="nav-number">5.5.</span> <span class="nav-text">查看pod的日志</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kube-exec-进入容器"><span class="nav-number">6.</span> <span class="nav-text">kube exec 进入容器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#学习的第一个deployment-yaml文件"><span class="nav-number">7.</span> <span class="nav-text">学习的第一个deployment yaml文件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#学习资源路径"><span class="nav-number">1.</span> <span class="nav-text">学习资源路径</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基础概念部分"><span class="nav-number">2.</span> <span class="nav-text">基础概念部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#架构图"><span class="nav-number">2.1.</span> <span class="nav-text">架构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用kubeadm安装备忘录"><span class="nav-number">2.2.</span> <span class="nav-text">使用kubeadm安装备忘录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#各个组件说明"><span class="nav-number">2.3.</span> <span class="nav-text">各个组件说明</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pods-Nodes概述"><span class="nav-number">3.</span> <span class="nav-text">Pods/Nodes概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Service的概念"><span class="nav-number">4.</span> <span class="nav-text">Service的概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令学习说明"><span class="nav-number">5.</span> <span class="nav-text">命令学习说明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#获取pod相关命令信息"><span class="nav-number">5.1.</span> <span class="nav-text">获取pod相关命令信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取当前集群支持的版本"><span class="nav-number">5.2.</span> <span class="nav-text">获取当前集群支持的版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取deployments"><span class="nav-number">5.3.</span> <span class="nav-text">获取deployments</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看资源的详细信息"><span class="nav-number">5.4.</span> <span class="nav-text">查看资源的详细信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看pod的日志"><span class="nav-number">5.5.</span> <span class="nav-text">查看pod的日志</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kube-exec-进入容器"><span class="nav-number">6.</span> <span class="nav-text">kube exec 进入容器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#学习的第一个deployment-yaml文件"><span class="nav-number">7.</span> <span class="nav-text">学习的第一个deployment yaml文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为nginx-deployment创建一个service，提供外部访问"><span class="nav-number">8.</span> <span class="nav-text">为nginx-deployment创建一个service，提供外部访问</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kubernetes的滚动更新说明"><span class="nav-number">9.</span> <span class="nav-text">kubernetes的滚动更新说明</span></a></li></ol></div>
             
 
           </div>
@@ -827,7 +869,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共 52.8k 字</span>
+  <span class="post-count">博客全站共 53.5k 字</span>
 </div>
 
         
