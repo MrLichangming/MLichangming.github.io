@@ -2,9 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://mrlichangming.github.io/2020/04/04/kubernetes%E8%BF%9B%E9%98%B6%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</loc>
+    
+    <lastmod>2020-04-13T00:43:10.950Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://mrlichangming.github.io/2020/02/23/kkubernetes%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</loc>
     
-    <lastmod>2020-04-04T14:50:28.928Z</lastmod>
+    <lastmod>2020-04-08T23:08:46.610Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://mrlichangming.github.io/2020/04/06/kubeadm%E5%AE%89%E8%A3%85kubernetes-v1-18-0/</loc>
+    
+    <lastmod>2020-04-07T09:55:28.679Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://mrlichangming.github.io/2018/11/17/python%E5%AD%A6%E4%B9%A0-%E4%BA%8C-django%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/</loc>
+    
+    <lastmod>2020-04-06T23:01:24.253Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://mrlichangming.github.io/%E4%B8%AA%E4%BA%BA%E7%AE%80%E4%BB%8B/index.html</loc>
+    
+    <lastmod>2020-04-06T00:30:17.518Z</lastmod>
     
   </url>
   
@@ -222,13 +250,6 @@
     <loc>https://mrlichangming.github.io/2019/06/04/openresty%E7%9A%84lua%E4%BB%A3%E7%A0%81%E5%A4%87%E5%BF%98%E5%BD%95/</loc>
     
     <lastmod>2019-06-10T07:27:10.239Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://mrlichangming.github.io/%E4%B8%AA%E4%BA%BA%E7%AE%80%E4%BB%8B/index.html</loc>
-    
-    <lastmod>2019-06-08T10:20:21.661Z</lastmod>
     
   </url>
   
@@ -481,13 +502,6 @@
     <loc>https://mrlichangming.github.io/2018/09/28/nginx%E7%BC%93%E5%AD%98%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E/</loc>
     
     <lastmod>2018-12-07T16:19:37.573Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://mrlichangming.github.io/2018/11/17/python%E5%AD%A6%E4%B9%A0-%E4%BA%8C-django%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/</loc>
-    
-    <lastmod>2018-11-26T15:22:08.446Z</lastmod>
     
   </url>
   

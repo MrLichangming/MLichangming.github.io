@@ -4,14 +4,14 @@
 
     
   <url>
-    <loc>https://mrlichangming.github.io/2020/02/23/kkubernetes%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</loc>
-    <lastmod>2020-04-04T14:50:28.928Z</lastmod>
+    <loc>https://mrlichangming.github.io/2020/04/04/kubernetes%E8%BF%9B%E9%98%B6%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</loc>
+    <lastmod>2020-04-13T00:43:10.950Z</lastmod>
     <data>
         <display>
-        <title>kubernetes基础入门学习记录</title>
-        <pubTime>2020-02-23T04:50:08.000Z</pubTime>
+        <title>kubernetes进阶学习记录</title>
+        <pubTime>2020-04-04T15:03:27.000Z</pubTime>
         
-        <tag>k8s</tag>
+        <tag>kubernetes进阶</tag>
          
          
            
@@ -22,6 +22,67 @@
     </data>
     </url>
 
+    
+  <url>
+    <loc>https://mrlichangming.github.io/2020/02/23/kkubernetes%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</loc>
+    <lastmod>2020-04-08T23:08:46.610Z</lastmod>
+    <data>
+        <display>
+        <title>kubernetes基础入门学习记录</title>
+        <pubTime>2020-02-23T04:50:08.000Z</pubTime>
+        
+        <tag>kubernetes入门</tag>
+         
+         
+           
+             
+              <breadCrumb title="kubernetes" url="https://mrlichangming.github.io/categories/kubernetes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mrlichangming.github.io/2020/04/06/kubeadm%E5%AE%89%E8%A3%85kubernetes-v1-18-0/</loc>
+    <lastmod>2020-04-07T09:55:28.679Z</lastmod>
+    <data>
+        <display>
+        <title>kubeadm安装kubernetes-v1.18.0</title>
+        <pubTime>2020-04-06T00:32:23.000Z</pubTime>
+        
+        <tag>kubernetes安装</tag>
+         
+         
+           
+             
+              <breadCrumb title="kubernetes" url="https://mrlichangming.github.io/categories/kubernetes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mrlichangming.github.io/2018/11/17/python%E5%AD%A6%E4%B9%A0-%E4%BA%8C-django%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/</loc>
+    <lastmod>2020-04-06T23:01:24.253Z</lastmod>
+    <data>
+        <display>
+        <title>python学习(二)django基础配置</title>
+        <pubTime>2018-11-17T14:23:36.000Z</pubTime>
+        
+        <tag>django</tag>
+         
+         
+           
+             
+              <breadCrumb title="python学习之路" url="https://mrlichangming.github.io/categories/python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
     
   <url>
     <loc>https://mrlichangming.github.io/2020/03/31/Linux%E5%BD%93%E5%89%8DPS%E7%BB%88%E7%AB%AF%E7%BE%8E%E5%8C%96/</loc>
@@ -649,7 +710,6 @@
     </data>
     </url>
 
-    
     
   <url>
     <loc>https://mrlichangming.github.io/2018/12/21/python%E5%AD%A6%E4%B9%A0%E5%85%AD-django%E6%A8%A1%E6%9D%BF%E9%A1%B5%E9%9D%A2%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A8%A1%E5%9E%8B%E6%93%8D%E4%BD%9C/</loc>
@@ -1360,26 +1420,6 @@
            
              
               <breadCrumb title="linux运维基本技能" url="https://mrlichangming.github.io/categories/linux%E8%BF%90%E7%BB%B4%E5%9F%BA%E6%9C%AC%E6%8A%80%E8%83%BD/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://mrlichangming.github.io/2018/11/17/python%E5%AD%A6%E4%B9%A0-%E4%BA%8C-django%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/</loc>
-    <lastmod>2018-11-26T15:22:08.446Z</lastmod>
-    <data>
-        <display>
-        <title>python学习(二)django基础配置</title>
-        <pubTime>2018-11-17T14:23:36.000Z</pubTime>
-        
-        <tag>django</tag>
-         
-         
-           
-             
-              <breadCrumb title="python学习之路" url="https://mrlichangming.github.io/categories/python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/"/>
           
         </display>
     </data>

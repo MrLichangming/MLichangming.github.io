@@ -79,7 +79,7 @@
 
 
 
-  <meta name="keywords" content="k8s," />
+  <meta name="keywords" content="kubernetes入门," />
 
 
 
@@ -93,7 +93,7 @@
 
 
 <meta name="description" content="记录下学习k8s的历程  好记性不如一个烂笔头">
-<meta name="keywords" content="k8s">
+<meta name="keywords" content="kubernetes入门">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kubernetes基础入门学习记录">
 <meta property="og:url" content="https://mrlichangming.github.io/2020/02/23/kkubernetes基础入门学习记录/index.html">
@@ -104,7 +104,7 @@
 <meta property="og:image" content="https://mrlichangming.github.io/images/k8s-pods.png">
 <meta property="og:image" content="https://mrlichangming.github.io/images/k8s-service_label.png">
 <meta property="og:image" content="https://mrlichangming.github.io/images/k8s-LabelSelector.png">
-<meta property="og:updated_time" content="2020-04-04T14:50:28.928Z">
+<meta property="og:updated_time" content="2020-04-08T23:08:46.610Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kubernetes基础入门学习记录">
 <meta name="twitter:description" content="记录下学习k8s的历程  好记性不如一个烂笔头">
@@ -511,8 +511,7 @@
 <p>LoadBalancer<br>在云环境中（需要云供应商可以支持）创建一个集群外部的负载均衡器，并为使用该负载均衡器的 IP 地址作为服务的访问地址。此时 ClusterIP 和 NodePort 的访问方式仍然可用</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">TIP</span><br><span class="line"></span><br><span class="line">Service是一个抽象层，它通过 LabelSelector 选择了一组 Pod（容器组），把这些Pod的指定端口公布到到集群外部，并支持负载均衡和服务发现。</span><br><span class="line"></span><br><span class="line">公布 Pod 的端口以使其可访问</span><br><span class="line">在多个 Pod 间实现负载均衡</span><br><span class="line">使用 Label 和 LabelSelector</span><br></pre></td></tr></table></figure>
-<p>#服务和标签</p>
-<p>服务就是service，对外提供的服务，然后通过服务 关联包含标签的pod，从而负载到不同的pod中，有点像docker swarm的service概念，一个service多个副本，访问service的vip地址内部负载到副本中，在k8s使用 service关联不同的pod，来实现负载</p>
+<h1 id="服务和标签"><a href="#服务和标签" class="headerlink" title="服务和标签"></a>服务和标签</h1><p>服务就是service，对外提供的服务，然后通过服务 关联包含标签的pod，从而负载到不同的pod中，有点像docker swarm的service概念，一个service多个副本，访问service的vip地址内部负载到副本中，在k8s使用 service关联不同的pod，来实现负载</p>
 <p>service需要编写yaml文件，部署pod，编写service的时候通过spec.selector.app 指定标签，也就是会关联到 包含此标签的pod中去</p>
 <p>标签就是在部署pod中，设置的自身标签，key+value</p>
 <p>在业务环境中，例如微服务的架构，我们可以将pod指定 开发环境  生产环境  测试环境 准生产环境 设置不同类型标签，让service关联到具有相同作用的pod上</p>
@@ -600,7 +599,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/k8s/" rel="tag"><i class="fa fa-tag"></i> k8s</a>
+            <a href="/tags/kubernetes入门/" rel="tag"><i class="fa fa-tag"></i> kubernetes入门</a>
           
         </div>
       
@@ -709,7 +708,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">109</span>
+                  <span class="site-state-item-count">111</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -731,7 +730,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/标签/index.html">
-                  <span class="site-state-item-count">79</span>
+                  <span class="site-state-item-count">81</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -813,7 +812,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#学习资源路径"><span class="nav-number">1.</span> <span class="nav-text">学习资源路径</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基础概念部分"><span class="nav-number">2.</span> <span class="nav-text">基础概念部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#架构图"><span class="nav-number">2.1.</span> <span class="nav-text">架构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用kubeadm安装备忘录"><span class="nav-number">2.2.</span> <span class="nav-text">使用kubeadm安装备忘录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#各个组件说明"><span class="nav-number">2.3.</span> <span class="nav-text">各个组件说明</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pods-Nodes概述"><span class="nav-number">3.</span> <span class="nav-text">Pods/Nodes概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Service的概念"><span class="nav-number">4.</span> <span class="nav-text">Service的概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令学习说明"><span class="nav-number">5.</span> <span class="nav-text">命令学习说明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#获取pod相关命令信息"><span class="nav-number">5.1.</span> <span class="nav-text">获取pod相关命令信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取当前集群支持的版本"><span class="nav-number">5.2.</span> <span class="nav-text">获取当前集群支持的版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取deployments"><span class="nav-number">5.3.</span> <span class="nav-text">获取deployments</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看资源的详细信息"><span class="nav-number">5.4.</span> <span class="nav-text">查看资源的详细信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看pod的日志"><span class="nav-number">5.5.</span> <span class="nav-text">查看pod的日志</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kube-exec-进入容器"><span class="nav-number">6.</span> <span class="nav-text">kube exec 进入容器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#学习的第一个deployment-yaml文件"><span class="nav-number">7.</span> <span class="nav-text">学习的第一个deployment yaml文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为nginx-deployment创建一个service，提供外部访问"><span class="nav-number">8.</span> <span class="nav-text">为nginx-deployment创建一个service，提供外部访问</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kubernetes的滚动更新说明"><span class="nav-number">9.</span> <span class="nav-text">kubernetes的滚动更新说明</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#学习资源路径"><span class="nav-number">1.</span> <span class="nav-text">学习资源路径</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基础概念部分"><span class="nav-number">2.</span> <span class="nav-text">基础概念部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#架构图"><span class="nav-number">2.1.</span> <span class="nav-text">架构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用kubeadm安装备忘录"><span class="nav-number">2.2.</span> <span class="nav-text">使用kubeadm安装备忘录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#各个组件说明"><span class="nav-number">2.3.</span> <span class="nav-text">各个组件说明</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pods-Nodes概述"><span class="nav-number">3.</span> <span class="nav-text">Pods/Nodes概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Service的概念"><span class="nav-number">4.</span> <span class="nav-text">Service的概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务和标签"><span class="nav-number">5.</span> <span class="nav-text">服务和标签</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令学习说明"><span class="nav-number">6.</span> <span class="nav-text">命令学习说明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#获取pod相关命令信息"><span class="nav-number">6.1.</span> <span class="nav-text">获取pod相关命令信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取当前集群支持的版本"><span class="nav-number">6.2.</span> <span class="nav-text">获取当前集群支持的版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取deployments"><span class="nav-number">6.3.</span> <span class="nav-text">获取deployments</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看资源的详细信息"><span class="nav-number">6.4.</span> <span class="nav-text">查看资源的详细信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看pod的日志"><span class="nav-number">6.5.</span> <span class="nav-text">查看pod的日志</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kube-exec-进入容器"><span class="nav-number">7.</span> <span class="nav-text">kube exec 进入容器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#学习的第一个deployment-yaml文件"><span class="nav-number">8.</span> <span class="nav-text">学习的第一个deployment yaml文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为nginx-deployment创建一个service，提供外部访问"><span class="nav-number">9.</span> <span class="nav-text">为nginx-deployment创建一个service，提供外部访问</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kubernetes的滚动更新说明"><span class="nav-number">10.</span> <span class="nav-text">kubernetes的滚动更新说明</span></a></li></ol></div>
             
 
           </div>
@@ -869,7 +868,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共 53.5k 字</span>
+  <span class="post-count">博客全站共 56k 字</span>
 </div>
 
         
