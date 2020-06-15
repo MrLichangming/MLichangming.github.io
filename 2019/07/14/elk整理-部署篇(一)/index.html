@@ -92,18 +92,18 @@
 
 
 
-<meta name="description" content="记录下工作中使用ELK系统的备忘录">
+<meta name="description" content="闲暇时间，整理下elk技能的知识点 也希望这篇部署文档帮到更多的人">
 <meta name="keywords" content="elk">
 <meta property="og:type" content="article">
-<meta property="og:title" content="elk日志收集系统使用备忘录">
-<meta property="og:url" content="https://mrlichangming.github.io/2019/07/14/elk日志收集系统使用备忘录/index.html">
+<meta property="og:title" content="elk整理-部署篇(一)">
+<meta property="og:url" content="https://mrlichangming.github.io/2019/07/14/elk整理-部署篇(一)/index.html">
 <meta property="og:site_name" content="Changming&#39;s blogs">
-<meta property="og:description" content="记录下工作中使用ELK系统的备忘录">
+<meta property="og:description" content="闲暇时间，整理下elk技能的知识点 也希望这篇部署文档帮到更多的人">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-02-24T01:56:56.428Z">
+<meta property="og:updated_time" content="2020-05-05T13:58:08.126Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="elk日志收集系统使用备忘录">
-<meta name="twitter:description" content="记录下工作中使用ELK系统的备忘录">
+<meta name="twitter:title" content="elk整理-部署篇(一)">
+<meta name="twitter:description" content="闲暇时间，整理下elk技能的知识点 也希望这篇部署文档帮到更多的人">
 
 
 
@@ -134,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="https://mrlichangming.github.io/2019/07/14/elk日志收集系统使用备忘录/"/>
+  <link rel="canonical" href="https://mrlichangming.github.io/2019/07/14/elk整理-部署篇(一)/"/>
 
 
 
 
 
-  <title>elk日志收集系统使用备忘录 | Changming's blogs</title>
+  <title>elk整理-部署篇(一) | Changming's blogs</title>
   
 
 
@@ -313,7 +313,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://mrlichangming.github.io/2019/07/14/elk日志收集系统使用备忘录/">
+    <link itemprop="mainEntityOfPage" href="https://mrlichangming.github.io/2019/07/14/elk整理-部署篇(一)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李常明">
@@ -330,7 +330,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">elk日志收集系统使用备忘录</h1>
+          <h1 class="post-title" itemprop="name headline">elk整理-部署篇(一)</h1>
         
 
         <div class="post-meta">
@@ -365,8 +365,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/监控/" itemprop="url" rel="index">
-                    <span itemprop="name">监控</span>
+                  <a href="/categories/监控闲下/" itemprop="url" rel="index">
+                    <span itemprop="name">监控闲下</span>
                   </a>
                 </span>
 
@@ -383,8 +383,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/07/14/elk日志收集系统使用备忘录/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/14/elk日志收集系统使用备忘录/" itemprop="commentCount"></span>
+                <a href="/2019/07/14/elk整理-部署篇(一)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/14/elk整理-部署篇(一)/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -411,7 +411,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  822
+                  916
                 </span>
               
 
@@ -449,10 +449,16 @@
 
       
         <hr>
-<p>记录下工作中使用ELK系统的备忘录</p>
+<p>闲暇时间，整理下elk技能的知识点</p>
+<p>也希望这篇部署文档帮到更多的人</p>
 <hr>
 <a id="more"></a>
-<h1 id="version"><a href="#version" class="headerlink" title="version"></a>version</h1><p>6.6.1</p>
+<h1 id="version"><a href="#version" class="headerlink" title="version"></a>version</h1><pre><code>elasticsearch: 6.6.1
+kafka:         2.12-2.0.0
+logstash:      6.6.2
+kibana:        6.6.1
+zookeeper:     3.4.10
+</code></pre><p>2020.5.5日记载，计划准备升级到7.x版本，公司开发人员和运维人员比较多，更多是想使用kibana的自带用户管理系统做到权限控制</p>
 <h1 id="组件说明-记录下原理部分"><a href="#组件说明-记录下原理部分" class="headerlink" title="组件说明(记录下原理部分)"></a>组件说明(记录下原理部分)</h1><p>公司业务采用架构为: filebeat+kafaka+zookeeper+logstash+elasticsearch+kibana+grafana</p>
 <p>Filebeat：filebat是一个用于转发和集中日志数据的轻量级shipper。作为代理安装在服务器上，filebeat监视指定的日志文件或位置，收集日志事件，并将它们转发给kafaka或者redis或者logstash进行索引</p>
 <p>kafaka: Kafka是一种高吞吐量的分布式发布/订阅消息系统，这是官方对kafka的定义，kafka是Apache组织下的一个开源系统，它的最大的特性就是可以实时的处理大量数据以满足各种需求场景：比如基于hadoop平台的数据分析、低时延的实时系统、storm/spark流式处理引擎等。kafka现在它已被多家大型公司作为多种类型的数据管道和消息系统使用</p>
@@ -466,7 +472,7 @@
 <p>以上这两个的区别为:  在grok中，(%{URIPATHPARAM:uri}|-) 会解析出来多个字段，匹配uri带参数，并解析出URIPATH和URIPARAM  ,GREEDYDATA匹配到url和参数值</p>
 <p>例如:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">日志: /www.baidu.com/sousuo/logstash/<span class="built_in">test</span>/url/a/b/c?a=1</span><br><span class="line"></span><br><span class="line">grok正则为: (%&#123;URIPATHPARAM:uri&#125;)</span><br><span class="line"></span><br><span class="line">  <span class="string">"uri"</span>: [</span><br><span class="line">    [</span><br><span class="line">      <span class="string">"/www.baidu.com/sousuo/logstash/test/url/a/b/c"</span></span><br><span class="line">    ]</span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"URIPATH"</span>: [</span><br><span class="line">    [</span><br><span class="line">      <span class="string">"/www.baidu.com/sousuo/logstash/test/url/a/b/c"</span></span><br><span class="line">    ]</span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"URIPARAM"</span>: [</span><br><span class="line">    [</span><br><span class="line">      <span class="string">"?a=1"</span></span><br><span class="line">    ]</span><br><span class="line">  ],</span><br></pre></td></tr></table></figure>
-<h1 id="grok的正则案例"><a href="#grok的正则案例" class="headerlink" title="grok的正则案例"></a>grok的正则案例</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="部署说明"><a href="#部署说明" class="headerlink" title="部署说明"></a>部署说明</h1><p>部署采用docker swarm集群模式</p>
 
       
     </div>
@@ -649,7 +655,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/分类/index.html">
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -742,7 +748,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#version"><span class="nav-number">1.</span> <span class="nav-text">version</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组件说明-记录下原理部分"><span class="nav-number">2.</span> <span class="nav-text">组件说明(记录下原理部分)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kafaka常用命令整理"><span class="nav-number">3.</span> <span class="nav-text">kafaka常用命令整理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#elasticsearch常用命令整理"><span class="nav-number">4.</span> <span class="nav-text">elasticsearch常用命令整理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#logstash正则匹配备忘录"><span class="nav-number">5.</span> <span class="nav-text">logstash正则匹配备忘录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#grok的正则案例"><span class="nav-number">6.</span> <span class="nav-text">grok的正则案例</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#version"><span class="nav-number">1.</span> <span class="nav-text">version</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组件说明-记录下原理部分"><span class="nav-number">2.</span> <span class="nav-text">组件说明(记录下原理部分)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kafaka常用命令整理"><span class="nav-number">3.</span> <span class="nav-text">kafaka常用命令整理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#elasticsearch常用命令整理"><span class="nav-number">4.</span> <span class="nav-text">elasticsearch常用命令整理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#logstash正则匹配备忘录"><span class="nav-number">5.</span> <span class="nav-text">logstash正则匹配备忘录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署说明"><span class="nav-number">6.</span> <span class="nav-text">部署说明</span></a></li></ol></div>
             
 
           </div>
@@ -798,7 +804,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共 56k 字</span>
+  <span class="post-count">博客全站共 58.4k 字</span>
 </div>
 
         

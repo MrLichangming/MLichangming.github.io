@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="Changming&#39;s blogs">
 <meta property="og:description" content="kubernetes进阶学习记录">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-04-13T00:43:10.950Z">
+<meta property="og:updated_time" content="2020-04-13T23:18:07.516Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kubernetes进阶学习记录">
 <meta name="twitter:description" content="kubernetes进阶学习记录">
@@ -411,7 +411,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.3k
+                  3.6k
                 </span>
               
 
@@ -427,7 +427,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5
+                  14
                 </span>
               
             </div>
@@ -506,7 +506,151 @@
 <p><code>matchLabels</code> 是一个 {key,value} 组成的 map。map 中的一个 {key,value} 条目相当于 <code>matchExpressions</code> 中的一个元素，其 <code>key</code> 为 map 的 key，<code>operator</code> 为 <code>In</code>， <code>values</code> 数组则只包含 <code>value</code> 一个元素。<code>matchExpression</code> 等价于基于集合的选择方式，支持的 <code>operator</code> 有 <code>In</code>、<code>NotIn</code>、<code>Exists</code> 和 <code>DoesNotExist</code>。当 <code>operator</code> 为 <code>In</code> 或 <code>NotIn</code> 时，<code>values</code> 数组不能为空。所有的选择条件都以 AND 的形式合并计算，即所有的条件都满足才可以算是匹配</p>
 <h1 id="注释annotations"><a href="#注释annotations" class="headerlink" title="注释annotations"></a>注释annotations</h1><p>POD的注释</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: Pod</span><br><span class="line">metadata:</span><br><span class="line">  name: annotations-demo</span><br><span class="line">  annotations:</span><br><span class="line">    imageregistry: <span class="string">"https://hub.docker.com/"</span>  <span class="comment"># 添加的注释</span></span><br><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">  - name: nginx</span><br><span class="line">    image: nginx:1.7.9</span><br><span class="line">    ports:</span><br><span class="line">    - containerPort: 80</span><br></pre></td></tr></table></figure>
-<h1 id="字段选择器"><a href="#字段选择器" class="headerlink" title="字段选择器"></a>字段选择器</h1>
+<h1 id="字段选择器"><a href="#字段选择器" class="headerlink" title="字段选择器"></a>字段选择器</h1><p>字段选择器，简单理解就是过滤条件，查询符合条件的kubernetes资源对象,以下为例子</p>
+<p>示例性的字段</p>
+<ul>
+<li><code>metadata.name=my-service</code></li>
+<li><code>metadata.namespace!=default</code></li>
+<li><code>status.phase=Pending</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 过滤状态为Running的pod</span></span><br><span class="line">kubectl get pods --field-selector status.phase=Running</span><br></pre></td></tr></table></figure>
+<p>字段选择器中可以使用的操作符有 <code>=</code>、<code>==</code>、<code>!=</code> （<code>=</code> 和 <code>==</code> 含义相同）。例如，下面的 <code>kubectl</code> 命令，查询不在 <code>default</code> 名称空间中的 Service：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">kubectl get services  --all-namespaces --field-selector metadata.namespace!=default</span><br><span class="line"></span><br><span class="line"><span class="comment"># 多个选择器</span></span><br><span class="line">kubectl get pods --field-selector=status.phase!=Running,spec.restartPolicy=Always</span><br><span class="line"></span><br><span class="line"><span class="comment"># 多个对象类型</span></span><br><span class="line">kubectl get statefulsets,services --all-namespaces --field-selector metadata.namespace!=default</span><br></pre></td></tr></table></figure>
+<h1 id="容器镜像相关"><a href="#容器镜像相关" class="headerlink" title="容器镜像相关"></a>容器镜像相关</h1><p>在yaml文件中，执行抓取镜像的策略</p>
+<ul>
+<li><code>imagePullPolicy: IfNotPresent</code> 仅在节点上没有该镜像时，从镜像仓库抓取</li>
+<li><code>imagePullPolicy: Always</code> 每次启动 Pod 时，从镜像仓库抓取</li>
+<li><code>imagePullPolicy</code> 未填写，镜像 tag 为 <code>:latest</code> 或者未填写，则同 <code>Always</code> 每次启动 Pod 时，从镜像仓库抓取</li>
+<li><code>imagePullPolicy</code> 未填写，镜像 tag 已填写但不是 <code>:latest</code>，则同 <code>IfNotPresent</code> 仅在节点上没有该镜像时，从镜像仓库抓取</li>
+<li><code>imagePullPolicy: Never</code>，Kubernetes 假设本地存在该镜像，并且不会尝试从镜像仓库抓取镜像</li>
+</ul>
+<h1 id="容器组"><a href="#容器组" class="headerlink" title="容器组"></a>容器组</h1><p>在 Kubernetes 中，广泛使用的控制器有：</p>
+<ul>
+<li>Deployment</li>
+<li>StatefulSet</li>
+<li>DaemonSet</li>
+</ul>
+<p>控制器通过其中配置的 Pod Template 信息来创建 Pod。</p>
+<h1 id="POD删除过程"><a href="#POD删除过程" class="headerlink" title="POD删除过程"></a>POD删除过程</h1><ol>
+<li><p>用户通过 Kuboard 或者 kubectl 发起删除 Pod 的指令，默认 grace period （等待时长）为30秒</p>
+</li>
+<li><p>Pod 的最大存活时间被更新，超过此存活时间，将被认为是“dead”</p>
+</li>
+<li><p>Pod 的状态变更为 “Terminating”</p>
+</li>
+<li><p>（与步骤 3 同时）Kubelet 识别出 Pod 的状态是 “Terminating”并立刻开始关闭 Pod 的过程</p>
+<ol>
+<li><p>如果 Pod 中的某个容器定义了 preStop hook，该钩子程序将被在容器内执行，如果 preStop hook 的执行超过了 grace period （等待时长），步骤二将被执行（并拥有额外的 2 秒等待时长）</p>
+</li>
+<li><p>向容器的主进程发送 TERM 信号</p>
+<p>TIP</p>
+<p>容器组的每一个容器并不是同一时间接受到 TERM 信号，如果容器的关闭顺序很重要，您可能需要为每一个容器都定义一个 preStop hook</p>
+</li>
+</ol>
+</li>
+<li><p>（与步骤 3 同时）将 Pod 从 Service 的 endpoint 列表中移除（Service 不再将请求路由到该 Pod）。</p>
+</li>
+<li><p>一旦超过 grace period（等待时长），向 Pod 中的任何仍在运行的进程发送 KILL 信号</p>
+</li>
+<li><p>Kubelet 将 Pod 从 API Server 中删除，Kuboard / kubectl 上不再显示该 Pod</p>
+</li>
+</ol>
+<p>默认情况下，删除 Pod 的 grace period（等待时长）是 30 秒。用户可以通过 kubectl delete 命令的选项 <code>--grace-period=</code> 自己指定 grace period（等待时长）。如果您要强制删除 Pod，您必须为 kubectl delete 命令同时指定两个选项 <code>--grace-period=0</code> 和 <code>--force</code></p>
+<h1 id="容器的检查"><a href="#容器的检查" class="headerlink" title="容器的检查"></a>容器的检查</h1><p>Probe 是指 kubelet 周期性地检查容器的状况。有三种类型的 Probe：</p>
+<ul>
+<li><strong>ExecAction：</strong> 在容器内执行一个指定的命令。如果该命令的退出状态码为 0，则成功</li>
+<li><strong>TCPSocketAction：</strong> 探测容器的指定 TCP 端口，如果该端口处于 open 状态，则成功</li>
+<li><strong>HTTPGetAction：</strong> 探测容器指定端口/路径上的 HTTP Get 请求，如果 HTTP 响应状态码在 200 到 400（不包含400）之间，则成功</li>
+</ul>
+<p>Probe 有三种可能的结果：</p>
+<ul>
+<li><strong>Success：</strong> 容器通过检测</li>
+<li><strong>Failure：</strong> 容器未通过检测</li>
+<li><strong>Unknown：</strong> 检测执行失败，此时 kubelet 不做任何处理</li>
+</ul>
+<p>Kubelet 可以在两种情况下对运行中的容器执行 Probe：</p>
+<ul>
+<li><strong>就绪检查 readinessProbe：</strong> 确定容器是否已经就绪并接收服务请求。如果就绪检查失败，kubernetes 将该 Pod 的 IP 地址从所有匹配的 Service 的资源池中移除掉。</li>
+<li><strong>健康检查 livenessProbe：</strong> 确定容器是否正在运行。如果健康检查失败，kubelete 将结束该容器，并根据 restart policy（重启策略）确定是否重启该容器。</li>
+</ul>
+<h3 id="何时使用-健康检查-就绪检查？"><a href="#何时使用-健康检查-就绪检查？" class="headerlink" title="#何时使用 健康检查/就绪检查？"></a><a href="https://kuboard.cn/learning/k8s-intermediate/workload/pod-lifecycle.html#何时使用-健康检查-就绪检查？" target="_blank" rel="noopener">#</a>何时使用 健康检查/就绪检查？</h3><ul>
+<li>如果容器中的进程在碰到问题时可以自己 crash，您并不需要执行健康检查；kubelet 可以自动的根据 Pod 的 restart policy（重启策略）执行对应的动作</li>
+<li>如果您希望在容器的进程无响应后，将容器 kill 掉并重启，则指定一个健康检查 liveness probe，并同时指定 restart policy（重启策略）为 Always 或者 OnFailure</li>
+<li>如果您想在探测 Pod 确实就绪之后才向其分发服务请求，请指定一个就绪检查 readiness probe。此时，就绪检查的内容可能和健康检查相同。就绪检查适合如下几类容器：<ul>
+<li>初始化时需要加载大量的数据、配置文件</li>
+<li>启动时需要执行迁移任务</li>
+<li>其他</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>TIP</p>
+<p>如果您想在删除 Pod 前停止向其分发服务请求，您无需为此而指定就绪检查。在删除 Pod 时，kubelete 自动将 Pod 置于 unready 状态，并等待其中的容器停止。</p>
+</blockquote>
+<h1 id="容器的状态"><a href="#容器的状态" class="headerlink" title="容器的状态"></a>容器的状态</h1><p>一旦 Pod 被调度到节点上，kubelet 便开始使用容器引擎（通常是 docker）创建容器。容器有三种可能的状态：Waiting / Running / Terminated：</p>
+<ul>
+<li><strong>Waiting：</strong> 容器的初始状态。处于 Waiting 状态的容器，仍然有对应的操作在执行，例如：拉取镜像、应用 Secrets等。</li>
+<li><strong>Running：</strong> 容器处于正常运行的状态。容器进入 Running 状态之后，如果指定了 postStart hook，该钩子将被执行。</li>
+<li><strong>Terminated：</strong> 容器处于结束运行的状态。容器进入 Terminated 状态之前，如果指定了 preStop hook，该钩子将被执行</li>
+</ul>
+<h1 id="使用初始化容器"><a href="#使用初始化容器" class="headerlink" title="使用初始化容器"></a>使用初始化容器</h1><p>初始化容器可以指定不同于工作容器的镜像，这使得初始化容器相较于直接在工作容器中编写启动相关的代码更有优势：</p>
+<ul>
+<li>初始化容器可以包含工作容器中没有的工具代码或者自定义代码。例如：您无需仅仅为了少量的 setup 工作（使用 sed, awk, python 或 dig 进行环境设定）而重新从一个基础镜像制作另外一个镜像</li>
+<li>初始化容器可以更安全地执行某些使工作容器变得不安全的代码</li>
+<li>应用程序的镜像构建者和部署者可以各自独立地工作，而无需一起构建一个镜像</li>
+<li>初始化容器相较于工作容器，可以以另外一个视角处理文件系统。例如，他们可以拥有访问 Secrets 的权限，而工作容器却不一定被授予该权限</li>
+<li>初始化容器在任何工作容器启动之前结束运行，这个特性使得我们可以阻止或者延迟工作容器的启动，直到某些前提条件得到满足。一旦前提条件满足，所有的工作容器将同时并行启动</li>
+</ul>
+<p>pod重启的原因</p>
+<p>Pod 重启时，所有的初始化容器都会重新执行，Pod 重启的原因可能有：</p>
+<ul>
+<li>用户更新了 Pod 的定义，并改变了初始化容器的镜像<ul>
+<li>改变任何一个初始化容器的镜像，将导致整个 Pod 重启</li>
+<li>改变工作容器的镜像，将只重启该工作容器，而不重启 Pod</li>
+</ul>
+</li>
+<li>Pod 容器基础设施被重启（例如 docker engine），这种情况不常见，通常只有 node 节点的 root 用户才可以执行此操作</li>
+<li>Pod 中所有容器都已经结束，restartPolicy 是 Always，且初始化容器执行的记录已经被垃圾回收，此时将重启整个 Pod</li>
+</ul>
+<h1 id="初始化容器配置案例"><a href="#初始化容器配置案例" class="headerlink" title="初始化容器配置案例"></a>初始化容器配置案例</h1><p>本例中，您将创建一个Pod，该Pod包含一个应用程序容器（工作容器）和一个初始化容器（Init Container）。初始化容器执行结束之后，应用程序容器（工作容器）才开始启动。</p>
+<p>Pod 的配置文件如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: Pod</span><br><span class="line">metadata:</span><br><span class="line">  name: init-demo</span><br><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">  - name: nginx</span><br><span class="line">    image: nginx</span><br><span class="line">    ports:</span><br><span class="line">    - containerPort: 80</span><br><span class="line">    volumeMounts:</span><br><span class="line">    - name: workdir</span><br><span class="line">      mountPath: /usr/share/nginx/html</span><br><span class="line">  <span class="comment"># These containers are run during pod initialization</span></span><br><span class="line">  initContainers:</span><br><span class="line">  - name: install</span><br><span class="line">    image: busybox</span><br><span class="line">    <span class="built_in">command</span>:</span><br><span class="line">    - wget</span><br><span class="line">    - <span class="string">"-O"</span></span><br><span class="line">    - <span class="string">"/work-dir/index.html"</span></span><br><span class="line">    - https://kuboard.cn</span><br><span class="line">    volumeMounts:</span><br><span class="line">    - name: workdir</span><br><span class="line">      mountPath: <span class="string">"/work-dir"</span></span><br><span class="line">  dnsPolicy: Default</span><br><span class="line">  volumes:</span><br><span class="line">  - name: workdir</span><br><span class="line">    emptyDir: &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>总结:</p>
+<p>以上yaml文件，执行initContainers初始化容器，执行wget命令下载指令，指令执行后，容器结束运行，工作容器nginx启动，此yaml使用同一个共享存储数据卷，init容器wget的html内容，会在工作容器nginx中显示，访问nginx容器的curl localhost 会看到此内容.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看pod的初始化容器状态</span></span><br><span class="line">kubectl get pod &lt;pod-name&gt; --template <span class="string">'&#123;&#123;.status.initContainerStatuses&#125;&#125;'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看初始化容器的日志</span></span><br><span class="line">kubectl logs &lt;pod-name&gt; -c &lt;init-container-1&gt;</span><br></pre></td></tr></table></figure>
+<p>POD关于初始化容器的状态</p>
+<p>如果 Pod 的状态以 <code>Init:</code> 开头，表示该 Pod 正在执行初始化容器。下表描述了 Debug 初始化容器的过程中，一些可能出现的 Pod 状态：</p>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Init:N/M</code></td>
+<td>Pod 中包含 M 个初始化容器，其中 N 个初始化容器已经成功执行</td>
+</tr>
+<tr>
+<td><code>Init:Error</code></td>
+<td>Pod 中有一个初始化容器执行失败</td>
+</tr>
+<tr>
+<td><code>Init:CrashLoopBackOff</code></td>
+<td>Pod 中有一个初始化容器反复执行失败</td>
+</tr>
+<tr>
+<td><code>Pending</code></td>
+<td>Pod 还未开始执行初始化容器</td>
+</tr>
+<tr>
+<td><code>PodInitializing</code> or <code>Running</code></td>
+<td>Pod 已经完成初始化容器的执行</td>
+</tr>
+</tbody>
+</table>
+
       
     </div>
     
@@ -688,7 +832,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/分类/index.html">
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -781,7 +925,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#节点管理"><span class="nav-number">1.</span> <span class="nav-text">节点管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#controller-manager"><span class="nav-number">2.</span> <span class="nav-text">controller-manager</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kubernetes相关接口文档"><span class="nav-number">3.</span> <span class="nav-text">kubernetes相关接口文档</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#yaml文件"><span class="nav-number">4.</span> <span class="nav-text">yaml文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#比对yaml文件的变更内容"><span class="nav-number">5.</span> <span class="nav-text">比对yaml文件的变更内容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#名称空间"><span class="nav-number">6.</span> <span class="nav-text">名称空间</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#名称空间于DNS"><span class="nav-number">6.1.</span> <span class="nav-text">名称空间于DNS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看名称空间的详细信息"><span class="nav-number">6.2.</span> <span class="nav-text">查看名称空间的详细信息</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#标签和选择器"><span class="nav-number">7.</span> <span class="nav-text">标签和选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#标签选择器"><span class="nav-number">7.1.</span> <span class="nav-text">标签选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API"><span class="nav-number">7.2.</span> <span class="nav-text">API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查询条件"><span class="nav-number">7.2.1.</span> <span class="nav-text">查询条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kubernetes基于对象引用"><span class="nav-number">7.2.2.</span> <span class="nav-text">kubernetes基于对象引用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注释annotations"><span class="nav-number">8.</span> <span class="nav-text">注释annotations</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字段选择器"><span class="nav-number">9.</span> <span class="nav-text">字段选择器</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#节点管理"><span class="nav-number">1.</span> <span class="nav-text">节点管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#controller-manager"><span class="nav-number">2.</span> <span class="nav-text">controller-manager</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kubernetes相关接口文档"><span class="nav-number">3.</span> <span class="nav-text">kubernetes相关接口文档</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#yaml文件"><span class="nav-number">4.</span> <span class="nav-text">yaml文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#比对yaml文件的变更内容"><span class="nav-number">5.</span> <span class="nav-text">比对yaml文件的变更内容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#名称空间"><span class="nav-number">6.</span> <span class="nav-text">名称空间</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#名称空间于DNS"><span class="nav-number">6.1.</span> <span class="nav-text">名称空间于DNS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看名称空间的详细信息"><span class="nav-number">6.2.</span> <span class="nav-text">查看名称空间的详细信息</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#标签和选择器"><span class="nav-number">7.</span> <span class="nav-text">标签和选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#标签选择器"><span class="nav-number">7.1.</span> <span class="nav-text">标签选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API"><span class="nav-number">7.2.</span> <span class="nav-text">API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查询条件"><span class="nav-number">7.2.1.</span> <span class="nav-text">查询条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kubernetes基于对象引用"><span class="nav-number">7.2.2.</span> <span class="nav-text">kubernetes基于对象引用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注释annotations"><span class="nav-number">8.</span> <span class="nav-text">注释annotations</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字段选择器"><span class="nav-number">9.</span> <span class="nav-text">字段选择器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#容器镜像相关"><span class="nav-number">10.</span> <span class="nav-text">容器镜像相关</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#容器组"><span class="nav-number">11.</span> <span class="nav-text">容器组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#POD删除过程"><span class="nav-number">12.</span> <span class="nav-text">POD删除过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#容器的检查"><span class="nav-number">13.</span> <span class="nav-text">容器的检查</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#何时使用-健康检查-就绪检查？"><span class="nav-number">13.0.1.</span> <span class="nav-text">#何时使用 健康检查/就绪检查？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#容器的状态"><span class="nav-number">14.</span> <span class="nav-text">容器的状态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用初始化容器"><span class="nav-number">15.</span> <span class="nav-text">使用初始化容器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初始化容器配置案例"><span class="nav-number">16.</span> <span class="nav-text">初始化容器配置案例</span></a></li></ol></div>
             
 
           </div>
@@ -837,7 +981,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共 56k 字</span>
+  <span class="post-count">博客全站共 58.4k 字</span>
 </div>
 
         

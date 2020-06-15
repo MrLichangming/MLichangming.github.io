@@ -2,23 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://mrlichangming.github.io/2020/04/06/kubeadm%E5%AE%89%E8%A3%85kubernetes-v1-18-0/</loc>
+    
+    <lastmod>2020-06-14T23:58:25.796Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://mrlichangming.github.io/2019/07/14/elk%E6%95%B4%E7%90%86-%E9%83%A8%E7%BD%B2%E7%AF%87(%E4%B8%80)/</loc>
+    
+    <lastmod>2020-05-05T13:58:08.126Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://mrlichangming.github.io/2020/04/04/kubernetes%E8%BF%9B%E9%98%B6%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</loc>
     
-    <lastmod>2020-04-13T00:43:10.950Z</lastmod>
+    <lastmod>2020-04-13T23:18:07.516Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://mrlichangming.github.io/2020/02/23/kkubernetes%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</loc>
     
-    <lastmod>2020-04-08T23:08:46.610Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://mrlichangming.github.io/2020/04/06/kubeadm%E5%AE%89%E8%A3%85kubernetes-v1-18-0/</loc>
-    
-    <lastmod>2020-04-07T09:55:28.679Z</lastmod>
+    <lastmod>2020-04-13T23:16:22.042Z</lastmod>
     
   </url>
   
@@ -89,13 +96,6 @@
     <loc>https://mrlichangming.github.io/2019/07/14/zabbix%E5%92%8Cgrafana%E4%BD%BF%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/</loc>
     
     <lastmod>2020-02-26T03:42:08.478Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://mrlichangming.github.io/2019/07/14/elk%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86%E7%B3%BB%E7%BB%9F%E4%BD%BF%E7%94%A8%E5%A4%87%E5%BF%98%E5%BD%95/</loc>
-    
-    <lastmod>2020-02-24T01:56:56.428Z</lastmod>
     
   </url>
   
