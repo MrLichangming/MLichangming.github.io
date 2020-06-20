@@ -99,9 +99,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[openresty学习路上的折腾]]></title>
-    <url>%2F2019%2F08%2F07%2Fopenresty%E5%AD%A6%E4%B9%A0%E8%B7%AF%E4%B8%8A%E7%9A%84%E6%8A%98%E8%85%BE%2F</url>
-    <content type="text"><![CDATA[openresty学习之路的备忘录 获取uri12local uri = ngx.var.uri # 获取请求的uri,不带参数local uri = ngx.var.request_uri # 获取请求的uri,携带参数]]></content>
+    <title><![CDATA[openresty中lua获取nginx的参数]]></title>
+    <url>%2F2019%2F08%2F07%2Fopenresty%E4%B8%ADlua%E8%8E%B7%E5%8F%96nginx%E5%86%85%E7%BD%AE%E5%8F%82%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[openresty学习之路的备忘录 获取uri12local uri = ngx.var.uri # 获取请求的uri,不带参数local uri = ngx.var.request_uri # 获取请求的uri,携带参数 字符串分割函数1234567891011function string.split(str, delimiter) if str == nil or str == '' or delimiter == nil then return nil end local result = &#123;&#125; for match in (str .. delimiter):gmatch("(.-)" .. delimiter) do table.insert(result, match) end return resultend 获取上游服务器ip地址1234-- 获取请求方的ipfunction get_request_ip() return ngx.var.http_x_forwarded_for and ngx.var.http_x_forwarded_for or ngx.var.remote_addrend 获取response内容12345-- 获取响应体内容 ngx.req.read_body() local postargs = ngx.req.get_post_args() local username = postargs["username"] ngx.log(ngx.ERR, '----username:',username, '----') 判断关键字是否在table中12345678910111213-- 排除的ID local limit_tb1 = &#123; 1222, 3232, 2121, &#125; local siteid = '1212' if siteid then if inTable(limit_tb1, tonumber(siteid)) then ngx.log(ngx.ERR, '排除的ID----- siteid: ', siteid) return end end]]></content>
       <categories>
         <category>openresty</category>
       </categories>
@@ -110,9 +110,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[openresty中lua获取nginx的参数]]></title>
-    <url>%2F2019%2F08%2F07%2Fopenresty%E4%B8%ADlua%E8%8E%B7%E5%8F%96nginx%E5%86%85%E7%BD%AE%E5%8F%82%E6%95%B0%2F</url>
-    <content type="text"><![CDATA[openresty学习之路的备忘录 获取uri12local uri = ngx.var.uri # 获取请求的uri,不带参数local uri = ngx.var.request_uri # 获取请求的uri,携带参数 字符串分割函数1234567891011function string.split(str, delimiter) if str == nil or str == '' or delimiter == nil then return nil end local result = &#123;&#125; for match in (str .. delimiter):gmatch("(.-)" .. delimiter) do table.insert(result, match) end return resultend 获取上游服务器ip地址1234-- 获取请求方的ipfunction get_request_ip() return ngx.var.http_x_forwarded_for and ngx.var.http_x_forwarded_for or ngx.var.remote_addrend 获取response内容12345-- 获取响应体内容 ngx.req.read_body() local postargs = ngx.req.get_post_args() local username = postargs["username"] ngx.log(ngx.ERR, '----username:',username, '----') 判断关键字是否在table中12345678910111213-- 排除的ID local limit_tb1 = &#123; 1222, 3232, 2121, &#125; local siteid = '1212' if siteid then if inTable(limit_tb1, tonumber(siteid)) then ngx.log(ngx.ERR, '排除的ID----- siteid: ', siteid) return end end]]></content>
+    <title><![CDATA[openresty学习路上的折腾]]></title>
+    <url>%2F2019%2F08%2F07%2Fopenresty%E5%AD%A6%E4%B9%A0%E8%B7%AF%E4%B8%8A%E7%9A%84%E6%8A%98%E8%85%BE%2F</url>
+    <content type="text"><![CDATA[openresty学习之路的备忘录 获取uri12local uri = ngx.var.uri # 获取请求的uri,不带参数local uri = ngx.var.request_uri # 获取请求的uri,携带参数]]></content>
       <categories>
         <category>openresty</category>
       </categories>
