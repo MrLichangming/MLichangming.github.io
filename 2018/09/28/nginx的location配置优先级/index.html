@@ -79,7 +79,7 @@
 
 
 
-  <meta name="keywords" content="nginx," />
+  <meta name="keywords" content="nginx_location," />
 
 
 
@@ -92,18 +92,18 @@
 
 
 
-<meta name="description" content="记录下，平常工作中容易混淆的nginx的location 优先级匹配的问题  location表达式类型~  表示执行一个正则匹配，区分大小写~* 表示执行一个正则匹配，不区分大小写^~ 表示普通字符匹配，使用前缀匹配。如果匹配成功，则不再匹配其他location= 进行普通字符精确匹配。完全匹配 location优先级说明注意： 在nginx的location配置中，和顺序没有太大关系，相同类">
-<meta name="keywords" content="nginx">
+<meta name="description" content="记录下，平常工作中容易混淆的nginx的location 优先级匹配的问题  location表达式类型~  表示执行一个正则匹配，区分大小写~* 表示执行一个正则匹配，不区分大小写^~ 表示普通字符匹配，使用前缀匹配。如果匹配成功，则不再匹配其他location= 进行普通字符精确匹配。完全匹配 location语法规则 location [=|~|~*|^~] /uri/ { … }">
+<meta name="keywords" content="nginx_location">
 <meta property="og:type" content="article">
 <meta property="og:title" content="nginx的location配置优先级">
 <meta property="og:url" content="https://mrlichangming.github.io/2018/09/28/nginx的location配置优先级/index.html">
 <meta property="og:site_name" content="Changming&#39;s blogs">
-<meta property="og:description" content="记录下，平常工作中容易混淆的nginx的location 优先级匹配的问题  location表达式类型~  表示执行一个正则匹配，区分大小写~* 表示执行一个正则匹配，不区分大小写^~ 表示普通字符匹配，使用前缀匹配。如果匹配成功，则不再匹配其他location= 进行普通字符精确匹配。完全匹配 location优先级说明注意： 在nginx的location配置中，和顺序没有太大关系，相同类">
+<meta property="og:description" content="记录下，平常工作中容易混淆的nginx的location 优先级匹配的问题  location表达式类型~  表示执行一个正则匹配，区分大小写~* 表示执行一个正则匹配，不区分大小写^~ 表示普通字符匹配，使用前缀匹配。如果匹配成功，则不再匹配其他location= 进行普通字符精确匹配。完全匹配 location语法规则 location [=|~|~*|^~] /uri/ { … }">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-27T23:57:30.315Z">
+<meta property="og:updated_time" content="2020-06-24T02:50:44.698Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx的location配置优先级">
-<meta name="twitter:description" content="记录下，平常工作中容易混淆的nginx的location 优先级匹配的问题  location表达式类型~  表示执行一个正则匹配，区分大小写~* 表示执行一个正则匹配，不区分大小写^~ 表示普通字符匹配，使用前缀匹配。如果匹配成功，则不再匹配其他location= 进行普通字符精确匹配。完全匹配 location优先级说明注意： 在nginx的location配置中，和顺序没有太大关系，相同类">
+<meta name="twitter:description" content="记录下，平常工作中容易混淆的nginx的location 优先级匹配的问题  location表达式类型~  表示执行一个正则匹配，区分大小写~* 表示执行一个正则匹配，不区分大小写^~ 表示普通字符匹配，使用前缀匹配。如果匹配成功，则不再匹配其他location= 进行普通字符精确匹配。完全匹配 location语法规则 location [=|~|~*|^~] /uri/ { … }">
 
 
 
@@ -318,7 +318,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="咖啡猫">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog2.png">
+      <meta itemprop="image" content="/images/blog3.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -411,7 +411,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  265
+                  696
                 </span>
               
 
@@ -427,7 +427,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -452,14 +452,72 @@
 <p>记录下，平常工作中容易混淆的nginx的location 优先级匹配的问题</p>
 <hr>
 <h1 id="location表达式类型"><a href="#location表达式类型" class="headerlink" title="location表达式类型"></a>location表达式类型</h1><p>~  表示执行一个正则匹配，区分大小写<br>~* 表示执行一个正则匹配，不区分大小写<br>^~ 表示普通字符匹配，使用前缀匹配。如果匹配成功，则不再匹配其他location<br>= 进行普通字符精确匹配。完全匹配</p>
-<h1 id="location优先级说明"><a href="#location优先级说明" class="headerlink" title="location优先级说明"></a>location优先级说明</h1><p>注意： 在nginx的location配置中，和顺序没有太大关系，相同类型的表达式，字符串长的会优先匹配</p>
+<h1 id="location语法规则"><a href="#location语法规则" class="headerlink" title="location语法规则"></a>location语法规则</h1><blockquote>
+<p>location [=|~|~*|^~] /uri/ { … }</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">模式</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">location = /uri</td>
+<td>= 表示精确匹配，只有完全匹配上才能生效</td>
+</tr>
+<tr>
+<td style="text-align:left">location ^~ /uri</td>
+<td>^~ 开头对URL路径进行<code>前缀匹配</code>，并且在正则之前</td>
+</tr>
+<tr>
+<td style="text-align:left">location ~ pattern</td>
+<td>开头表示区分大小写的正则匹配</td>
+</tr>
+<tr>
+<td style="text-align:left">location ~* pattern</td>
+<td>开头表示不区分大小写的正则匹配</td>
+</tr>
+<tr>
+<td style="text-align:left">location /uri</td>
+<td>不带任何修饰符，也表示<code>前缀匹配</code>，但是在正则匹配之后</td>
+</tr>
+<tr>
+<td style="text-align:left">location /</td>
+<td>通用匹配，任何未匹配到其它location的请求都会匹配到，相当于switch中的default</td>
+</tr>
+</tbody>
+</table>
+<p>个人工作经验总结:(仅供参考，如果实际有误差，还望指出)</p>
+<p>在表格中的语法规则，有一个单词叫<code>前缀匹配</code>，前缀匹配中，按<code>最大匹配原则</code>，也就是匹配内容最多的location生效</p>
 <p>优先级排列说明:</p>
 <ul>
 <li>第一优先级，等号类型，一旦匹配成功，则不再查找其他匹配项</li>
-<li>第二优先级，^~ 类型表达式，一旦匹配成功，则不再查找其他匹配项</li>
-<li>第三优先级，正则表达式类型(~ ~*)的优先级次之，如果有多个location的正则能匹配的话，则使用正则表达式最长的那个</li>
-<li>第四优先级，常规字符串匹配类型，按前缀匹配</li>
+<li>第二优先级，^~ 类型表达式，一旦匹配成功，则不再查找其他匹配项,属于<code>前缀匹配</code>，如果多个location正则能匹配，取最大匹配原则，也就是匹配内容最多的那个</li>
+<li>第三优先级，正则表达式类型(~ ~*)的优先级次之，相同location正则匹配，<code>按顺序匹配</code>，不取最大匹配原则,   ‘不区分 (~ 或者  ~星)’，这两者都属于正则匹配</li>
+<li>第四优先级，常规字符串匹配类型，属于<code>前缀匹配</code> ,  不带任何修饰符的前缀匹配中 取匹配内容最多的location</li>
 </ul>
+<p>两个比较混淆的知识点:</p>
+<ul>
+<li>~和~* 这两者不区分优先级，按顺序匹配</li>
+<li><p>前缀匹配的只有 <code>^~</code> 和<code>不带任何修饰符的/uri，例如 /test</code>,在前缀匹配中，匹配最大原则，也就是匹配最长的优先</p>
+</li>
+<li><p>前缀匹配中，例如<code>/test</code>和<code>带修饰符的 ^/test/aa</code> ，访问<code>http://localhost/test/aa</code>匹配到 <code>/test</code></p>
+</li>
+</ul>
+<p>以上概念熟悉后，总结如下:</p>
+<p> location 匹配顺序为</p>
+<ul>
+<li>首先精确匹配 <code>=</code></li>
+<li>其次前缀匹配 <code>^~</code></li>
+<li>其次是按文件中顺序的正则匹配</li>
+<li>然后匹配不带任何修饰(例如^)的前缀匹配。</li>
+<li>最后是交给 <code>/</code> 通用匹配</li>
+<li>当有匹配成功时候，停止匹配，按当前匹配规则处理请求</li>
+</ul>
+<p>文章参考:</p>
+<p><a href="https://moonbingbing.gitbooks.io/openresty-best-practices/ngx/nginx_local_pcre.html" target="_blank" rel="noopener">location匹配规则章节(Openresty最佳实践)</a></p>
 
       
     </div>
@@ -493,7 +551,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/nginx/" rel="tag"><i class="fa fa-tag"></i> nginx</a>
+            <a href="/tags/nginx-location/" rel="tag"><i class="fa fa-tag"></i> nginx_location</a>
           
         </div>
       
@@ -588,7 +646,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="/images/blog2.png"
+                src="/images/blog3.jpg"
                 alt="咖啡猫" />
             
               <p class="site-author-name" itemprop="name">咖啡猫</p>
@@ -624,7 +682,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/标签/index.html">
-                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-count">82</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -706,7 +764,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#location表达式类型"><span class="nav-number">1.</span> <span class="nav-text">location表达式类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#location优先级说明"><span class="nav-number">2.</span> <span class="nav-text">location优先级说明</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#location表达式类型"><span class="nav-number">1.</span> <span class="nav-text">location表达式类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#location语法规则"><span class="nav-number">2.</span> <span class="nav-text">location语法规则</span></a></li></ol></div>
             
 
           </div>
@@ -762,7 +820,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共 58.4k 字</span>
+  <span class="post-count">博客全站共 58.9k 字</span>
 </div>
 
         

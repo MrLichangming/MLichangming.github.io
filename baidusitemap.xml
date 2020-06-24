@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>https://mrlichangming.github.io/2018/09/28/nginx%E7%9A%84location%E9%85%8D%E7%BD%AE%E4%BC%98%E5%85%88%E7%BA%A7/</loc>
+    <lastmod>2020-06-24T02:50:44.698Z</lastmod>
+    <data>
+        <display>
+        <title>nginx的location配置优先级</title>
+        <pubTime>2018-09-27T23:33:08.000Z</pubTime>
+        
+        <tag>nginx_location</tag>
+         
+         
+           
+             
+              <breadCrumb title="linux运维基本技能" url="https://mrlichangming.github.io/categories/linux%E8%BF%90%E7%BB%B4%E5%9F%BA%E6%9C%AC%E6%8A%80%E8%83%BD/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://mrlichangming.github.io/2020/04/06/kubeadm%E5%AE%89%E8%A3%85kubernetes-v1-18-0/</loc>
     <lastmod>2020-06-14T23:58:25.796Z</lastmod>
     <data>
@@ -1656,26 +1676,6 @@
            
              
               <breadCrumb title="hexo美化" url="https://mrlichangming.github.io/categories/hexo%E7%BE%8E%E5%8C%96/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://mrlichangming.github.io/2018/09/28/nginx%E7%9A%84location%E9%85%8D%E7%BD%AE%E4%BC%98%E5%85%88%E7%BA%A7/</loc>
-    <lastmod>2018-10-27T23:57:30.315Z</lastmod>
-    <data>
-        <display>
-        <title>nginx的location配置优先级</title>
-        <pubTime>2018-09-27T23:33:08.000Z</pubTime>
-        
-        <tag>nginx</tag>
-         
-         
-           
-             
-              <breadCrumb title="linux运维基本技能" url="https://mrlichangming.github.io/categories/linux%E8%BF%90%E7%BB%B4%E5%9F%BA%E6%9C%AC%E6%8A%80%E8%83%BD/"/>
           
         </display>
     </data>

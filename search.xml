@@ -99,9 +99,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[openresty中lua获取nginx的参数]]></title>
-    <url>%2F2019%2F08%2F07%2Fopenresty%E4%B8%ADlua%E8%8E%B7%E5%8F%96nginx%E5%86%85%E7%BD%AE%E5%8F%82%E6%95%B0%2F</url>
-    <content type="text"><![CDATA[openresty学习之路的备忘录 获取uri12local uri = ngx.var.uri # 获取请求的uri,不带参数local uri = ngx.var.request_uri # 获取请求的uri,携带参数 字符串分割函数1234567891011function string.split(str, delimiter) if str == nil or str == '' or delimiter == nil then return nil end local result = &#123;&#125; for match in (str .. delimiter):gmatch("(.-)" .. delimiter) do table.insert(result, match) end return resultend 获取上游服务器ip地址1234-- 获取请求方的ipfunction get_request_ip() return ngx.var.http_x_forwarded_for and ngx.var.http_x_forwarded_for or ngx.var.remote_addrend 获取response内容12345-- 获取响应体内容 ngx.req.read_body() local postargs = ngx.req.get_post_args() local username = postargs["username"] ngx.log(ngx.ERR, '----username:',username, '----') 判断关键字是否在table中12345678910111213-- 排除的ID local limit_tb1 = &#123; 1222, 3232, 2121, &#125; local siteid = '1212' if siteid then if inTable(limit_tb1, tonumber(siteid)) then ngx.log(ngx.ERR, '排除的ID----- siteid: ', siteid) return end end]]></content>
+    <title><![CDATA[openresty学习路上的折腾]]></title>
+    <url>%2F2019%2F08%2F07%2Fopenresty%E5%AD%A6%E4%B9%A0%E8%B7%AF%E4%B8%8A%E7%9A%84%E6%8A%98%E8%85%BE%2F</url>
+    <content type="text"><![CDATA[openresty学习之路的备忘录 获取uri12local uri = ngx.var.uri # 获取请求的uri,不带参数local uri = ngx.var.request_uri # 获取请求的uri,携带参数]]></content>
       <categories>
         <category>openresty</category>
       </categories>
@@ -110,9 +110,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[openresty学习路上的折腾]]></title>
-    <url>%2F2019%2F08%2F07%2Fopenresty%E5%AD%A6%E4%B9%A0%E8%B7%AF%E4%B8%8A%E7%9A%84%E6%8A%98%E8%85%BE%2F</url>
-    <content type="text"><![CDATA[openresty学习之路的备忘录 获取uri12local uri = ngx.var.uri # 获取请求的uri,不带参数local uri = ngx.var.request_uri # 获取请求的uri,携带参数]]></content>
+    <title><![CDATA[openresty中lua获取nginx的参数]]></title>
+    <url>%2F2019%2F08%2F07%2Fopenresty%E4%B8%ADlua%E8%8E%B7%E5%8F%96nginx%E5%86%85%E7%BD%AE%E5%8F%82%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[openresty学习之路的备忘录 获取uri12local uri = ngx.var.uri # 获取请求的uri,不带参数local uri = ngx.var.request_uri # 获取请求的uri,携带参数 字符串分割函数1234567891011function string.split(str, delimiter) if str == nil or str == '' or delimiter == nil then return nil end local result = &#123;&#125; for match in (str .. delimiter):gmatch("(.-)" .. delimiter) do table.insert(result, match) end return resultend 获取上游服务器ip地址1234-- 获取请求方的ipfunction get_request_ip() return ngx.var.http_x_forwarded_for and ngx.var.http_x_forwarded_for or ngx.var.remote_addrend 获取response内容12345-- 获取响应体内容 ngx.req.read_body() local postargs = ngx.req.get_post_args() local username = postargs["username"] ngx.log(ngx.ERR, '----username:',username, '----') 判断关键字是否在table中12345678910111213-- 排除的ID local limit_tb1 = &#123; 1222, 3232, 2121, &#125; local siteid = '1212' if siteid then if inTable(limit_tb1, tonumber(siteid)) then ngx.log(ngx.ERR, '排除的ID----- siteid: ', siteid) return end end]]></content>
       <categories>
         <category>openresty</category>
       </categories>
@@ -973,12 +973,12 @@
   <entry>
     <title><![CDATA[nginx的location配置优先级]]></title>
     <url>%2F2018%2F09%2F28%2Fnginx%E7%9A%84location%E9%85%8D%E7%BD%AE%E4%BC%98%E5%85%88%E7%BA%A7%2F</url>
-    <content type="text"><![CDATA[记录下，平常工作中容易混淆的nginx的location 优先级匹配的问题 location表达式类型~ 表示执行一个正则匹配，区分大小写~* 表示执行一个正则匹配，不区分大小写^~ 表示普通字符匹配，使用前缀匹配。如果匹配成功，则不再匹配其他location= 进行普通字符精确匹配。完全匹配 location优先级说明注意： 在nginx的location配置中，和顺序没有太大关系，相同类型的表达式，字符串长的会优先匹配 优先级排列说明: 第一优先级，等号类型，一旦匹配成功，则不再查找其他匹配项 第二优先级，^~ 类型表达式，一旦匹配成功，则不再查找其他匹配项 第三优先级，正则表达式类型(~ ~*)的优先级次之，如果有多个location的正则能匹配的话，则使用正则表达式最长的那个 第四优先级，常规字符串匹配类型，按前缀匹配]]></content>
+    <content type="text"><![CDATA[记录下，平常工作中容易混淆的nginx的location 优先级匹配的问题 location表达式类型~ 表示执行一个正则匹配，区分大小写~* 表示执行一个正则匹配，不区分大小写^~ 表示普通字符匹配，使用前缀匹配。如果匹配成功，则不再匹配其他location= 进行普通字符精确匹配。完全匹配 location语法规则 location [=|~|~*|^~] /uri/ { … } 模式 含义 location = /uri = 表示精确匹配，只有完全匹配上才能生效 location ^~ /uri ^~ 开头对URL路径进行前缀匹配，并且在正则之前 location ~ pattern 开头表示区分大小写的正则匹配 location ~* pattern 开头表示不区分大小写的正则匹配 location /uri 不带任何修饰符，也表示前缀匹配，但是在正则匹配之后 location / 通用匹配，任何未匹配到其它location的请求都会匹配到，相当于switch中的default 个人工作经验总结:(仅供参考，如果实际有误差，还望指出) 在表格中的语法规则，有一个单词叫前缀匹配，前缀匹配中，按最大匹配原则，也就是匹配内容最多的location生效 优先级排列说明: 第一优先级，等号类型，一旦匹配成功，则不再查找其他匹配项 第二优先级，^~ 类型表达式，一旦匹配成功，则不再查找其他匹配项,属于前缀匹配，如果多个location正则能匹配，取最大匹配原则，也就是匹配内容最多的那个 第三优先级，正则表达式类型(~ ~*)的优先级次之，相同location正则匹配，按顺序匹配，不取最大匹配原则, ‘不区分 (~ 或者 ~星)’，这两者都属于正则匹配 第四优先级，常规字符串匹配类型，属于前缀匹配 , 不带任何修饰符的前缀匹配中 取匹配内容最多的location 两个比较混淆的知识点: ~和~* 这两者不区分优先级，按顺序匹配 前缀匹配的只有 ^~ 和不带任何修饰符的/uri，例如 /test,在前缀匹配中，匹配最大原则，也就是匹配最长的优先 前缀匹配中，例如/test和带修饰符的 ^/test/aa ，访问http://localhost/test/aa匹配到 /test 以上概念熟悉后，总结如下: location 匹配顺序为 首先精确匹配 = 其次前缀匹配 ^~ 其次是按文件中顺序的正则匹配 然后匹配不带任何修饰(例如^)的前缀匹配。 最后是交给 / 通用匹配 当有匹配成功时候，停止匹配，按当前匹配规则处理请求 文章参考: location匹配规则章节(Openresty最佳实践)]]></content>
       <categories>
         <category>linux运维基本技能</category>
       </categories>
       <tags>
-        <tag>nginx</tag>
+        <tag>nginx_location</tag>
       </tags>
   </entry>
   <entry>
