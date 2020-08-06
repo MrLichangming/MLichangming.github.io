@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://mrlichangming.github.io/"/>
-  <updated>2020-06-14T23:58:25.796Z</updated>
+  <updated>2020-08-06T16:11:48.431Z</updated>
   <id>https://mrlichangming.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>kubernetes学习导航地址</title>
+    <link href="https://mrlichangming.github.io/2020/07/30/kubernetes%E5%AD%A6%E4%B9%A0%E5%AF%BC%E8%88%AA%E5%9C%B0%E5%9D%80/"/>
+    <id>https://mrlichangming.github.io/2020/07/30/kubernetes学习导航地址/</id>
+    <published>2020-07-30T00:26:50.000Z</published>
+    <updated>2020-08-06T16:11:48.431Z</updated>
+    
+    <summary type="html">
+    
+      &lt;hr&gt;
+&lt;p&gt;kubernetes学习导航地址&lt;/p&gt;
+&lt;hr&gt;
+    
+    </summary>
+    
+      <category term="kubernetes" scheme="https://mrlichangming.github.io/categories/kubernetes/"/>
+    
+    
+      <category term="kubernetes导航" scheme="https://mrlichangming.github.io/tags/kubernetes%E5%AF%BC%E8%88%AA/"/>
+    
+  </entry>
   
   <entry>
     <title>kubeadm安装kubernetes-v1.18.0</title>
@@ -237,11 +259,11 @@
   </entry>
   
   <entry>
-    <title>openresty学习路上的折腾</title>
-    <link href="https://mrlichangming.github.io/2019/08/07/openresty%E5%AD%A6%E4%B9%A0%E8%B7%AF%E4%B8%8A%E7%9A%84%E6%8A%98%E8%85%BE/"/>
-    <id>https://mrlichangming.github.io/2019/08/07/openresty学习路上的折腾/</id>
+    <title>openresty中lua获取nginx的参数</title>
+    <link href="https://mrlichangming.github.io/2019/08/07/openresty%E4%B8%ADlua%E8%8E%B7%E5%8F%96nginx%E5%86%85%E7%BD%AE%E5%8F%82%E6%95%B0/"/>
+    <id>https://mrlichangming.github.io/2019/08/07/openresty中lua获取nginx内置参数/</id>
     <published>2019-08-07T06:32:34.000Z</published>
-    <updated>2019-08-08T01:49:17.659Z</updated>
+    <updated>2019-08-23T01:46:07.158Z</updated>
     
     <summary type="html">
     
@@ -259,11 +281,11 @@
   </entry>
   
   <entry>
-    <title>openresty中lua获取nginx的参数</title>
-    <link href="https://mrlichangming.github.io/2019/08/07/openresty%E4%B8%ADlua%E8%8E%B7%E5%8F%96nginx%E5%86%85%E7%BD%AE%E5%8F%82%E6%95%B0/"/>
-    <id>https://mrlichangming.github.io/2019/08/07/openresty中lua获取nginx内置参数/</id>
+    <title>openresty学习路上的折腾</title>
+    <link href="https://mrlichangming.github.io/2019/08/07/openresty%E5%AD%A6%E4%B9%A0%E8%B7%AF%E4%B8%8A%E7%9A%84%E6%8A%98%E8%85%BE/"/>
+    <id>https://mrlichangming.github.io/2019/08/07/openresty学习路上的折腾/</id>
     <published>2019-08-07T06:32:34.000Z</published>
-    <updated>2019-08-23T01:46:07.158Z</updated>
+    <updated>2019-08-08T01:49:17.659Z</updated>
     
     <summary type="html">
     
@@ -434,32 +456,6 @@
     
     
       <category term="linux内核" scheme="https://mrlichangming.github.io/tags/linux%E5%86%85%E6%A0%B8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>生产环境swarm集群的节点正常下线操作</title>
-    <link href="https://mrlichangming.github.io/2019/06/26/%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83swarm%E9%9B%86%E7%BE%A4%E7%9A%84%E8%8A%82%E7%82%B9%E6%AD%A3%E5%B8%B8%E4%B8%8B%E7%BA%BF%E6%93%8D%E4%BD%9C/"/>
-    <id>https://mrlichangming.github.io/2019/06/26/生产环境swarm集群的节点正常下线操作/</id>
-    <published>2019-06-26T03:13:40.000Z</published>
-    <updated>2020-03-30T09:45:38.455Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;a
-        
-      
-    
-    </summary>
-    
-      <category term="docker" scheme="https://mrlichangming.github.io/categories/docker/"/>
-    
-    
-      <category term="docker swarm" scheme="https://mrlichangming.github.io/tags/docker-swarm/"/>
     
   </entry>
   
