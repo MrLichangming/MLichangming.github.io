@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+      
+    
+    
+      
+    
+  <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+  <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-flash.min.css" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="kubernetes命令," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Changming's blogs" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="整理下kubernetes常用命令 方便后续忘记的时候查看">
+<meta name="keywords" content="kubernetes命令">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kubernetes常用操作命令汇总">
+<meta property="og:url" content="https://mrlichangming.github.io/2020/08/13/kubernetes常用操作命令汇总/index.html">
+<meta property="og:site_name" content="Changming&#39;s blogs">
+<meta property="og:description" content="整理下kubernetes常用命令 方便后续忘记的时候查看">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://mrlichangming.github.io/images/kubernetes/kubectl1.png">
+<meta property="og:image" content="https://mrlichangming.github.io/images/kubernetes/kubectl2.png">
+<meta property="og:image" content="https://mrlichangming.github.io/images/kubernetes/kubectl3.png">
+<meta property="og:updated_time" content="2021-01-11T07:34:01.362Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kubernetes常用操作命令汇总">
+<meta name="twitter:description" content="整理下kubernetes常用命令 方便后续忘记的时候查看">
+<meta name="twitter:image" content="https://mrlichangming.github.io/images/kubernetes/kubectl1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://mrlichangming.github.io/2020/08/13/kubernetes常用操作命令汇总/"/>
+
+
+
+
+
+  <title>kubernetes常用操作命令汇总 | Changming's blogs</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<!-- 添加fork me to github -->
+	<a href="https://github.com/MrLichangming"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Changming's blogs</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">技术的本质就是解决问题的能力</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/个人简介/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/标签/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/分类/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://mrlichangming.github.io/2020/08/13/kubernetes常用操作命令汇总/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="咖啡猫">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog3.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Changming's blogs">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">kubernetes常用操作命令汇总</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-13T19:26:25+08:00">
+                2020-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kubernetes/" itemprop="url" rel="index">
+                    <span itemprop="name">kubernetes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/08/13/kubernetes常用操作命令汇总/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/08/13/kubernetes常用操作命令汇总/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+		  
+			<span class="post-meta-divider">|</span>
+			<span id="busuanzi_value_page_pv"></span>次阅读
+		  
+		  
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<p>整理下kubernetes常用命令 方便后续忘记的时候查看</p>
+<hr>
+<a id="more"></a>
+<p>kubectl 子命令列表<br><code>图文来自kubernetes进阶实战一书</code></p>
+<p><img src="/images/kubernetes/kubectl1.png" alt="kubectl子命令1"><br><img src="/images/kubernetes/kubectl2.png" alt="kubectl子命令2"><br><img src="/images/kubernetes/kubectl3.png" alt="kubectl子命令3"></p>
+<h1 id="kubectl支持Tab快速补全"><a href="#kubectl支持Tab快速补全" class="headerlink" title="kubectl支持Tab快速补全"></a>kubectl支持Tab快速补全</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># bash用户 直接使用 bash-completion</span></span><br><span class="line">yum -y install bash-completion</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 写入用户的环境变量</span></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"source &lt;(kubectl completion bash)"</span> &gt;&gt; ~/.bashrc</span><br><span class="line">$ <span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 个人觉得比较好用的 kube-prompt</span></span><br><span class="line"><span class="comment"># 项目地址: https://github.com/c-bata/kube-prompt</span></span><br><span class="line"><span class="comment"># by 2020.09.21 最新版本如下  具体版本可登陆项目地址 查看</span></span><br><span class="line">wget https://github.com/c-bata/kube-prompt/releases/download/v1.0.10/kube-prompt_v1.0.10_linux_amd64.zip</span><br><span class="line">unzip kube-prompt_v1.0.10_linux_amd64.zip</span><br><span class="line">chmod +x kube-prompt</span><br><span class="line">sudo mv ./kube-prompt /usr/<span class="built_in">local</span>/bin/kube-prompt</span><br></pre></td></tr></table></figure>
+<h1 id="重新初始化集群"><a href="#重新初始化集群" class="headerlink" title="重新初始化集群"></a>重新初始化集群</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">重新初始化 执行 kubeadm reset -f 操作</span><br></pre></td></tr></table></figure>
+<h1 id="pod相关"><a href="#pod相关" class="headerlink" title="pod相关"></a>pod相关</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -n 指定命名空间,默认default  -o wide代表详细信息</span></span><br><span class="line">kubectl get pod -n kube-system -o wide  <span class="comment"># 查看kube-system命名空间下的所有pod状态信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看pod的具体详细信息</span></span><br><span class="line">kubectl describe pod kube-proxy-hmkmm -n kube-system</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取所有命名空间下的pod</span></span><br><span class="line">kubectl get pods --all-namespaces</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除pod</span></span><br><span class="line">kubectl delete pod &lt;pod-name&gt; -n &lt;pod-namespece&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># kubectl get 资源类型</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#获取类型为Deployment的资源列表</span></span><br><span class="line">kubectl get deployments</span><br><span class="line"></span><br><span class="line"><span class="comment">#获取类型为Pod的资源列表</span></span><br><span class="line">kubectl get pods</span><br><span class="line"></span><br><span class="line"><span class="comment">#获取类型为Node的资源列表</span></span><br><span class="line">kubectl get nodes</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看某个pod nginx-pod-xxxxxx的日志</span></span><br><span class="line">kubectl logs -f nginx-pod-XXXXXXX</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在名称为nginx-pod-xxxxxx的Pod中运行bash</span></span><br><span class="line">kubectl <span class="built_in">exec</span> -it nginx-pod-xxxxxx /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取名称空间为kube-system 指定label标签符合的pod</span></span><br><span class="line">kubectl get pods -l k8s-app(标签名) -n kube-system</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取kube-system名称空间中拥有标签component=kube-apiserver的Pod对象的资源配置清单</span></span><br><span class="line">kubectl get pods -l component=kube-apiserver -o yaml -n kube-system</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示pod的标签信息</span></span><br><span class="line">kubectl get pods --show-labels</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示特定键值的标签信息(env,tier)</span></span><br><span class="line">kubectl get pods -L env,tier</span><br><span class="line"></span><br><span class="line"><span class="comment"># 为pod添加标签</span></span><br><span class="line">kubectl label pods/pod-example env=production</span><br><span class="line"></span><br><span class="line"><span class="comment"># 覆盖更改标签的键值</span></span><br><span class="line">kubect label pods/pod-example env=testing --overwrite</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除名称空间下所有pod</span></span><br><span class="line">kubectl delete pods --all -n kube-public</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除pod覆盖默认的宽限期</span></span><br><span class="line">kubectl delete pods --all -n kube-public --grace-period</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">kubectl delete pods --all -n kube-public --now</span><br></pre></td></tr></table></figure>
+<h1 id="POD基于标签选择器筛选"><a href="#POD基于标签选择器筛选" class="headerlink" title="POD基于标签选择器筛选"></a>POD基于标签选择器筛选</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 显示键名env的值不为qa的所有Pod对象</span></span><br><span class="line">kubectl get pods -l <span class="string">"env!=qa"</span> -L env</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示标签键名env的值不为qa，且标签键名tier的值为frontend的所有Pod对象</span></span><br><span class="line">kubectl get pods -l <span class="string">"env!=qa,tire=frontend"</span> -L env,tier</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显⽰标签键名env的值为production或dev的所有Pod对象</span></span><br><span class="line">kubectl get pods -l <span class="string">"env in (production,dev)"</span> -L env</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出标签键名env的值为production或dev， 且不存在键名为tier的标签的所有Pod对象</span></span><br><span class="line">kubectl get pods -l <span class="string">'env in (production,dev),!tier'</span> -L env,tier</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意: 为了避免shell解释器解析叹号（！ ） ， 必须要为此类表达式使⽤单引号</span></span><br></pre></td></tr></table></figure>
+<h1 id="node相关"><a href="#node相关" class="headerlink" title="node相关"></a>node相关</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看node信息</span></span><br><span class="line">kubectl get node -o wide</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获得加入集群的操作指令信息</span></span><br><span class="line">kubeadm token create --<span class="built_in">print</span>-join-command</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除节点</span></span><br><span class="line">kubectl delete nodes node-name</span><br></pre></td></tr></table></figure>
+<h1 id="Node标签相关"><a href="#Node标签相关" class="headerlink" title="Node标签相关"></a>Node标签相关</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 给node节点添加标签</span></span><br><span class="line">kubectl label nodes node-1 disktype=ssd</span><br></pre></td></tr></table></figure>
+<h2 id="将Pod通过标签选择器关联到节点上"><a href="#将Pod通过标签选择器关联到节点上" class="headerlink" title="将Pod通过标签选择器关联到节点上"></a>将Pod通过标签选择器关联到节点上</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">pod-with-nodeselector</span></span><br><span class="line"><span class="attr">  labels:</span></span><br><span class="line"><span class="attr">    env:</span> <span class="string">testing</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  containers:</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">myapp</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">ikubernetes/myapp:v1</span></span><br><span class="line"><span class="attr">  nodeSelector:</span></span><br><span class="line"><span class="attr">    disktype:</span> <span class="string">ssd</span></span><br></pre></td></tr></table></figure>
+<h1 id="namespace相关"><a href="#namespace相关" class="headerlink" title="namespace相关"></a>namespace相关</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取当前所有的名称空间</span></span><br><span class="line">kubectl get namespaces  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置当前所在的namespace</span></span><br><span class="line"><span class="comment"># 个人理解: 使kubectl查询对象时，不用携带--namespace， 默认是default名称空间，可以更改</span></span><br><span class="line">kubectl config <span class="built_in">set</span>-context --current --namespace=&lt;您的名称空间&gt;</span><br><span class="line"><span class="comment"># 验证结果</span></span><br><span class="line">kubectl config view --minify | grep namespace:</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看当前的context</span></span><br><span class="line">kubectl config current-context</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置kubectl的上下文  --cluster --user 指定的参数 是 上述指令(查看当前的context)查询出来的内容</span></span><br><span class="line"><span class="comment"># 例如当前存在名称空间development 和production名称空间</span></span><br><span class="line"><span class="comment"># 切换当前context为 dev</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置developement 为dev</span></span><br><span class="line">kubectl config <span class="built_in">set</span>-context dev --namespace=development --cluster=kubernetes-admin@kubernetes --user=kubernetes-admin@kubernetes</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用dev环境的上下文</span></span><br><span class="line">kubectl config use-context dev</span><br><span class="line"><span class="comment"># 查看验证是否生效</span></span><br><span class="line">kubectl config current-context</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看存在名称空间的kubernetes对象</span></span><br><span class="line"><span class="comment"># 在名称空间里</span></span><br><span class="line">kubectl api-resources --namespaced=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 不在名称空间里</span></span><br><span class="line">kubectl api-resources --namespaced=<span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看名称空间的概要信息</span></span><br><span class="line">kubectl describe namespaces &lt;name&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="yaml文件相关"><a href="#yaml文件相关" class="headerlink" title="yaml文件相关"></a>yaml文件相关</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply --validate -f mypod.yaml  <span class="comment"># 校验yaml文件是否有错误</span></span><br></pre></td></tr></table></figure>
+<h1 id="格式化输出信息"><a href="#格式化输出信息" class="headerlink" title="格式化输出信息"></a>格式化输出信息</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查找所有名臣空间下 容器的镜像名称</span></span><br><span class="line">kubectl get pods --all-namespaces -o jsonpath=&#123;..image&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 去重 换行显示</span></span><br><span class="line">kubectl get pods --all-namespaces -o jsonpath=&#123;..image&#125; | tr -s <span class="string">'[[:space:]]'</span> <span class="string">'\n'</span> | sort | uniq -c</span><br></pre></td></tr></table></figure>
+<h1 id="删除节点"><a href="#删除节点" class="headerlink" title="删除节点"></a>删除节点</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 在Master上"排干"当前节点之上的Pod资源并移除Node节点</span></span><br><span class="line">kubectn drain NODE_id --delete-local-data --force --ignore-daemonsets</span><br><span class="line">kubectl delete node NODE_id</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 在删除的Node上执行如下命令重置系统状态便可完成移除操作</span></span><br><span class="line">kubeadm reset</span><br></pre></td></tr></table></figure>
+<h1 id="资源配置属性"><a href="#资源配置属性" class="headerlink" title="资源配置属性"></a>资源配置属性</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kubectl explain pods <span class="comment"># 根据pod对象类型显示相关的下一级文档 查看可用属性字段</span></span><br><span class="line"></span><br><span class="line">kubectl explain pods.spec <span class="comment"># 查看Pod资源的Spec对象支持嵌套使用的二级字段</span></span><br><span class="line"></span><br><span class="line">kubectl explain pods.spec.containers <span class="comment"># 查看Pod资源Spec对象嵌套的container的三级阶段</span></span><br></pre></td></tr></table></figure>
+<h1 id="获取docker镜像的CMD和ENTRYPOINT指令内容"><a href="#获取docker镜像的CMD和ENTRYPOINT指令内容" class="headerlink" title="获取docker镜像的CMD和ENTRYPOINT指令内容"></a>获取docker镜像的CMD和ENTRYPOINT指令内容</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker inspect ikubernetes/myapp:v1 -f &#123;&#123;.Config.Cmd&#125;&#125;</span><br><span class="line">docker inspect ikubernetes/myapp:v1 -f &#123;&#123;.Config.Entrypoint&#125;&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+	
+	<div>
+		
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+		
+	</div>
+	
+	<div>
+      
+        
+      
+	</div>
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kubernetes命令/" rel="tag"><i class="fa fa-tag"></i> kubernetes命令</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/08/11/使用Centos8之后遇到的改变/" rel="next" title="使用Centos8之后遇到的改变">
+                <i class="fa fa-chevron-left"></i> 使用Centos8之后遇到的改变
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/08/18/awk小备忘录/" rel="prev" title="awk小备忘录">
+                awk小备忘录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog3.jpg"
+                alt="咖啡猫" />
+            
+              <p class="site-author-name" itemprop="name">咖啡猫</p>
+              <p class="site-description motion-element" itemprop="description">命运给你一个比别人低的起点，是想告诉你，让你用一生的努力去奋斗出一个绝地反击的故事。这个故事关于独立，关于梦想，关于坚忍，关于勇气！</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">121</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/分类/index.html">
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/标签/index.html">
+                  <span class="site-state-item-count">91</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/MrLichangming" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:15116973831@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情连接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zhuimar.com/" title="追马" target="_blank">追马</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://jkzhao.github.io/" title="jkzhao" target="_blank">jkzhao</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://owelinux.github.io/" title="晚点咖啡" target="_blank">晚点咖啡</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://lvjianzhao.gitee.io/" title="吕建钊" target="_blank">吕建钊</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#kubectl支持Tab快速补全"><span class="nav-number">1.</span> <span class="nav-text">kubectl支持Tab快速补全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重新初始化集群"><span class="nav-number">2.</span> <span class="nav-text">重新初始化集群</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pod相关"><span class="nav-number">3.</span> <span class="nav-text">pod相关</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#POD基于标签选择器筛选"><span class="nav-number">4.</span> <span class="nav-text">POD基于标签选择器筛选</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#node相关"><span class="nav-number">5.</span> <span class="nav-text">node相关</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Node标签相关"><span class="nav-number">6.</span> <span class="nav-text">Node标签相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#将Pod通过标签选择器关联到节点上"><span class="nav-number">6.1.</span> <span class="nav-text">将Pod通过标签选择器关联到节点上</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#namespace相关"><span class="nav-number">7.</span> <span class="nav-text">namespace相关</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#yaml文件相关"><span class="nav-number">8.</span> <span class="nav-text">yaml文件相关</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#格式化输出信息"><span class="nav-number">9.</span> <span class="nav-text">格式化输出信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#删除节点"><span class="nav-number">10.</span> <span class="nav-text">删除节点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#资源配置属性"><span class="nav-number">11.</span> <span class="nav-text">资源配置属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取docker镜像的CMD和ENTRYPOINT指令内容"><span class="nav-number">12.</span> <span class="nav-text">获取docker镜像的CMD和ENTRYPOINT指令内容</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">咖啡猫</span>
+
+  
+</div>
+
+<!-- 
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+ -->
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    博客访问人数<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共 66.1k 字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script id="ribbon" type="text/javascript" size="300" alpha="0.6"  zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'YVvrGffRg8tzLMygqGNukL3E-gzGzoHsz',
+        appKey: 'OaH9wb8JDNA7XA7YiVAoqHSG',
+        placeholder: '填写你的评论',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+  
+  <!-- 背景动态线条 -->
+  <!--<script src="dist/canvas-nest.js"></script>-->
+  
+</body>
+</html>

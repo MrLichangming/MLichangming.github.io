@@ -4,6 +4,241 @@
 
     
   <url>
+    <loc>https://mrlichangming.github.io/2020/11/13/kubernetes%E8%BF%9B%E9%98%B6%E5%AE%9E%E6%88%98%E8%AF%BB%E5%90%8E%E6%84%9F%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2021-01-11T07:34:12.309Z</lastmod>
+    <data>
+        <display>
+        <title>kubernetes进阶实战读后感笔记</title>
+        <pubTime>2020-11-13T01:33:57.000Z</pubTime>
+        
+        <tag>kubernetes进阶实战书籍笔记</tag>
+         
+         
+           
+             
+              <breadCrumb title="kubernetes" url="https://mrlichangming.github.io/categories/kubernetes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mrlichangming.github.io/2020/08/13/kubernetes%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/</loc>
+    <lastmod>2021-01-11T07:34:01.362Z</lastmod>
+    <data>
+        <display>
+        <title>kubernetes常用操作命令汇总</title>
+        <pubTime>2020-08-13T11:26:25.000Z</pubTime>
+        
+        <tag>kubernetes命令</tag>
+         
+         
+           
+             
+              <breadCrumb title="kubernetes" url="https://mrlichangming.github.io/categories/kubernetes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mrlichangming.github.io/2018/12/03/%E7%90%86%E8%A7%A3TCP%E7%8A%B6%E6%80%81%E7%9A%84TIME-WAIT%E5%92%8CCLOSE-WAIT%E7%8A%B6%E6%80%81-%E4%BA%92%E8%81%94%E7%BD%91%E5%8D%9A%E5%AE%A2%E5%9C%B0%E5%9D%80%E8%AE%B0%E5%BD%95/</loc>
+    <lastmod>2020-12-03T01:56:08.882Z</lastmod>
+    <data>
+        <display>
+        <title>理解TCP状态的TIME_WAIT和CLOSE_WAIT状态-互联网博客地址记录</title>
+        <pubTime>2018-12-03T01:54:14.000Z</pubTime>
+        
+        <tag>TCP状态</tag>
+         
+         
+           
+             
+              <breadCrumb title="linux运维基本技能" url="https://mrlichangming.github.io/categories/linux%E8%BF%90%E7%BB%B4%E5%9F%BA%E6%9C%AC%E6%8A%80%E8%83%BD/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mrlichangming.github.io/2018/09/19/linux%E9%AB%98%E9%98%B6%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2020-12-03T01:51:27.596Z</lastmod>
+    <data>
+        <display>
+        <title>linux高阶命令使用</title>
+        <pubTime>2018-09-19T04:35:18.000Z</pubTime>
+        
+        <tag>awk getopts</tag>
+         
+         
+           
+             
+              <breadCrumb title="linux高阶命令" url="https://mrlichangming.github.io/categories/linux%E9%AB%98%E9%98%B6%E5%91%BD%E4%BB%A4/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mrlichangming.github.io/2020/08/11/%E4%BD%BF%E7%94%A8Centos8%E4%B9%8B%E5%90%8E%E9%81%87%E5%88%B0%E7%9A%84%E6%94%B9%E5%8F%98/</loc>
+    <lastmod>2020-11-29T02:23:25.091Z</lastmod>
+    <data>
+        <display>
+        <title>使用Centos8之后遇到的改变</title>
+        <pubTime>2020-08-11T01:11:59.000Z</pubTime>
+        
+        <tag>centos8系统</tag>
+         
+         
+           
+             
+              <breadCrumb title="linux运维基本技能" url="https://mrlichangming.github.io/categories/linux%E8%BF%90%E7%BB%B4%E5%9F%BA%E6%9C%AC%E6%8A%80%E8%83%BD/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mrlichangming.github.io/2018/11/27/Docker%E8%AE%B0%E5%BD%95%E5%A4%A7%E6%9D%82%E7%83%A9/</loc>
+    <lastmod>2020-11-27T02:19:08.027Z</lastmod>
+    <data>
+        <display>
+        <title>Docker记录大杂烩</title>
+        <pubTime>2018-11-27T02:16:14.000Z</pubTime>
+        
+        <tag>Docker大杂烩</tag>
+         
+         
+           
+             
+              <breadCrumb title="Docker" url="https://mrlichangming.github.io/categories/Docker/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mrlichangming.github.io/2019/10/27/kubernetes%E5%A4%A7%E6%9D%82%E7%83%A9/</loc>
+    <lastmod>2020-11-13T01:07:26.245Z</lastmod>
+    <data>
+        <display>
+        <title>kubernetes大杂烩</title>
+        <pubTime>2019-10-27T07:42:27.000Z</pubTime>
+        
+        <tag>kubernetes大杂烩</tag>
+         
+         
+           
+             
+              <breadCrumb title="kubernetes" url="https://mrlichangming.github.io/categories/kubernetes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mrlichangming.github.io/2019/08/07/openresty%E4%B8%ADlua%E8%8E%B7%E5%8F%96nginx%E5%86%85%E7%BD%AE%E5%8F%82%E6%95%B0/</loc>
+    <lastmod>2020-11-10T09:48:30.485Z</lastmod>
+    <data>
+        <display>
+        <title>openresty中lua获取nginx的参数</title>
+        <pubTime>2019-08-07T06:32:34.000Z</pubTime>
+        
+        <tag>openresty学习之路</tag>
+         
+         
+           
+             
+              <breadCrumb title="openresty" url="https://mrlichangming.github.io/categories/openresty/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mrlichangming.github.io/2020/08/18/awk%E5%B0%8F%E5%A4%87%E5%BF%98%E5%BD%95/</loc>
+    <lastmod>2020-09-30T06:30:43.698Z</lastmod>
+    <data>
+        <display>
+        <title>awk小备忘录</title>
+        <pubTime>2020-08-18T07:03:39.000Z</pubTime>
+        
+        <tag>awk</tag>
+         
+         
+           
+             
+              <breadCrumb title="linux运维基本技能" url="https://mrlichangming.github.io/categories/linux%E8%BF%90%E7%BB%B4%E5%9F%BA%E6%9C%AC%E6%8A%80%E8%83%BD/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mrlichangming.github.io/2018/07/05/openresty%E7%9B%B8%E5%85%B3-%E5%B7%A5%E4%BD%9C%E5%B0%8F%E5%8A%A9%E6%89%8B%E6%96%87%E7%AB%A0/</loc>
+    <lastmod>2020-09-17T07:05:47.806Z</lastmod>
+    <data>
+        <display>
+        <title>openresty相关-工作小助手文章</title>
+        <pubTime>2018-07-05T03:26:31.000Z</pubTime>
+        
+        <tag>小助手</tag>
+         
+         
+           
+             
+              <breadCrumb title="openresty" url="https://mrlichangming.github.io/categories/openresty/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mrlichangming.github.io/2018/08/06/%E7%BC%96%E5%86%99shell%E8%84%9A%E6%9C%AC%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E6%8A%80%E5%B7%A7/</loc>
+    <lastmod>2020-09-09T01:51:20.753Z</lastmod>
+    <data>
+        <display>
+        <title>编写shell脚本的一些小技巧</title>
+        <pubTime>2018-08-06T11:15:50.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://mrlichangming.github.io/2020/02/11/python%E7%9A%84argparse%E6%80%BB%E7%BB%93/</loc>
+    <lastmod>2020-08-31T07:59:17.710Z</lastmod>
+    <data>
+        <display>
+        <title>python的argparse总结</title>
+        <pubTime>2020-02-11T07:14:30.000Z</pubTime>
+        
+        <tag>python的积累</tag>
+         
+         
+           
+             
+              <breadCrumb title="python的积累" url="https://mrlichangming.github.io/categories/python%E7%9A%84%E7%A7%AF%E7%B4%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://mrlichangming.github.io/2020/07/30/kubernetes%E5%AD%A6%E4%B9%A0%E5%AF%BC%E8%88%AA%E5%9C%B0%E5%9D%80/</loc>
     <lastmod>2020-08-06T16:11:48.431Z</lastmod>
     <data>
@@ -154,26 +389,6 @@
         
          
            
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://mrlichangming.github.io/2018/09/19/linux%E9%AB%98%E9%98%B6%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8/</loc>
-    <lastmod>2020-04-01T12:26:47.016Z</lastmod>
-    <data>
-        <display>
-        <title>linux高阶命令使用</title>
-        <pubTime>2018-09-19T04:35:18.000Z</pubTime>
-        
-        <tag>awk getopts</tag>
-         
-         
-           
-             
-              <breadCrumb title="linux高阶命令" url="https://mrlichangming.github.io/categories/linux%E9%AB%98%E9%98%B6%E5%91%BD%E4%BB%A4/"/>
-          
         </display>
     </data>
     </url>
@@ -408,26 +623,6 @@
            
              
               <breadCrumb title="nginx" url="https://mrlichangming.github.io/categories/nginx/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://mrlichangming.github.io/2019/08/07/openresty%E4%B8%ADlua%E8%8E%B7%E5%8F%96nginx%E5%86%85%E7%BD%AE%E5%8F%82%E6%95%B0/</loc>
-    <lastmod>2019-08-23T01:46:07.158Z</lastmod>
-    <data>
-        <display>
-        <title>openresty中lua获取nginx的参数</title>
-        <pubTime>2019-08-07T06:32:34.000Z</pubTime>
-        
-        <tag>openresty学习之路</tag>
-         
-         
-           
-             
-              <breadCrumb title="openresty" url="https://mrlichangming.github.io/categories/openresty/"/>
           
         </display>
     </data>
@@ -1562,26 +1757,6 @@
 
     
   <url>
-    <loc>https://mrlichangming.github.io/2018/11/16/python%E7%9A%84argparse%E6%80%BB%E7%BB%93/</loc>
-    <lastmod>2018-11-16T12:53:46.475Z</lastmod>
-    <data>
-        <display>
-        <title>python的argparse总结</title>
-        <pubTime>2018-11-16T12:41:49.000Z</pubTime>
-        
-        <tag>python的argparse</tag>
-         
-         
-           
-             
-              <breadCrumb title="python学习之路" url="https://mrlichangming.github.io/categories/python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://mrlichangming.github.io/2018/09/28/python-OS%E6%A8%A1%E5%9D%97%E7%9A%84%E5%AD%A6%E4%B9%A0%E7%A7%AF%E7%B4%AF/</loc>
     <lastmod>2018-11-16T05:35:45.299Z</lastmod>
     <data>
@@ -2081,12 +2256,12 @@
 
     
   <url>
-    <loc>https://mrlichangming.github.io/2020/03/25/GlusterFS%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%91%BD%E4%BB%A4%E7%A7%AF%E7%B4%AF/</loc>
+    <loc>https://mrlichangming.github.io/2021/01/20/GlusterFS%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%91%BD%E4%BB%A4%E7%A7%AF%E7%B4%AF/</loc>
     <lastmod>2018-10-01T01:56:14.443Z</lastmod>
     <data>
         <display>
         <title>GlusterFS使用中的一些命令积累</title>
-        <pubTime>2020-03-25T14:31:30.135Z</pubTime>
+        <pubTime>2021-01-20T09:52:34.168Z</pubTime>
         
         <tag>GlusterFS</tag>
          
